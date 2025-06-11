@@ -1,0 +1,51 @@
+name: Build and Deploy Frontend to Production
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  buildImage:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: Build
+        uses: "./.github/template/build"
+        with:
+          azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
+          azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          azure_container_registry: "acrfarosiansharedneu.azurecr.io"
+          container_name: "frontend"
+          resource_group: "rg-farosian-shared-neu"
+  deploy:
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: [buildImage]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: Deploy
+        uses: "./.github/template/deploy"
+        with:
+          azure_client_id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure_tenant_id: ${{ secrets.AZURE_TENANT_ID }}
+          azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          azure_container_registry: "acrfarosiansharedneu.azurecr.io"
+          container_name: "frontend"
+          resource_group: "rg-farosian-prod-neu"
+          cluster_name: "aks-farosian-production-neu"
+          kustomize_path: "./deploy/overlays/production"
+          namespace: "default"

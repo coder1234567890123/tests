@@ -1,0 +1,94 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+parameters:
+  locale: 'en'
+  BLOB_ENDPOINTS_PROTOCOL: '%env(BLOB_ENDPOINTS_PROTOCOL)%'
+  BLOB_URL: '%env(BLOB_URL)%'
+  RESET_URL: '%env(RESET_URL)%'
+  SERVICE_BUS_URL: '%env(SERVICE_BUS_URL)%'
+  SERVICE_BUS_QUEUE: '%env(SERVICE_BUS_QUEUE)%'
+  SERVICE_BUS_ACTIVE: '%env(SERVICE_BUS_ACTIVE)%'
+  API_ERROR_DEV: '%env(API_ERROR_DEV)%'
+  DEV_MAIL: '%env(DEV_MAIL)%'
+
+  # Defaults
+  env(SERVICE_BUS_ACTIVE): false
+  env(SERVICE_BUS_QUEUE): 'test'
+  env(SERVICE_BUS_URL): ''
+  env(API_ERROR_DEV): false
+  env(DEV_MAIL): false
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false       # Allows optimizing the container by removing unused services; this also means
+      # fetching services directly from the container via $container->get() won't work.
+    # The best practice is to be explicit about your dependencies anyway.
+
+  _instanceof:
+    App\Service\SearchPhrase\Token\TokenInterface:
+      tags: [ 'search_phrase.token' ]
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: '../src/*'
+    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  App\Controller\:
+    resource: '../src/Controller'
+    tags: [ 'controller.service_arguments' ]
+
+  # Alias ManagerRegistry to doctrine service
+  Doctrine\Persistence\ManagerRegistry: '@doctrine'
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+  JMS\Serializer\SerializerInterface:
+    alias: "jms_serializer"
+
+  app.doctrine_object_constructor:
+    class: App\Service\DoctrineObjectConstructor
+    arguments: [ "@doctrine", "@jms_serializer.unserialize_object_constructor" ]
+
+  jms_serializer.object_constructor:
+    alias: app.doctrine_object_constructor
+    public: false
+
+  App\Service\SearchPhrase\Parser:
+    arguments: [ !tagged 'search_phrase.token' ]
+
+  App\Service\UuidSerializerHandler:
+    tags:
+      - { name: jms_serializer.subscribing_handler }
+
+  app.service.filter.filter_configurator:
+    class: App\Service\Filter\FilterConfigurator
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@security.token_storage"
+      - "@annotation_reader"
+    tags:
+      - { name: kernel.event_listener, event: kernel.request }
+
+  investigation_complete_listener:
+    class: App\EventSubscriber\InvestigationCompleteListener
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@security.token_storage"
+    tags:
+      - { name: event_subscriber }
+
+  App\Contracts\SystemConfigRepositoryInterface:
+    class: App\Repository\SystemConfigRepository
+
+  App\Contracts\GlobalWeightsRepositoryInterface:
+    class: App\Repository\GlobalWeightsRepository
+
+  App\Contracts\AnswerRepositoryInterface:
+    class: App\Repository\AnswerRepository

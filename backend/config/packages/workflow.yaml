@@ -1,0 +1,76 @@
+framework:
+  workflows:
+    report_status:
+      type: 'state_machine' # or 'workflow'
+      audit_trail:
+        enabled: true
+      marking_store:
+        type: 'single_state' # or 'multiple_state'
+        arguments:
+          - 'status'
+      supports:
+        - App\Entity\Subject
+      initial_place: new_subject
+      places:
+        - new_subject
+        - new_request
+        - abandoned_request
+        - needs_approval
+        - search_started
+        - search_completed
+        - validated
+        - report_type_approved
+        - under_investigation
+        - investigation_completed
+        - team_lead_approved
+        - completed
+        - abandoned_request
+        - abandoned
+      transitions:
+        request:
+          # the transition is allowed only if the current user has the ROLE_USER_STANDARD role.
+          guard: "is_granted('ROLE_USER_STANDARD') or is_granted('ROLE_TEAM_LEAD')"
+          from: new_subject
+          to: new_request
+        type_approval:
+          guard: "is_granted('ROLE_SUPER_ADMIN')"
+          from: new_request
+          to: report_type_approved
+        search_start:
+          # the transition is allowed only if the current user has the ROLE_USER_STANDARD role.
+          guard: "is_granted('ROLE_ANALYST')"
+          from: [ new_request, report_type_approved ]
+          to: search_started
+        search_complete:
+          # the transition is allowed only if the current user has the ROLE_USER_STANDARD role.
+          guard: "is_granted('ROLE_ANALYST')"
+          from: search_started
+          to: search_completed
+        valid:
+          guard: "is_granted('ROLE_ANALYST')"
+          from: search_completed
+          to: validated
+        investigate:
+          guard: "is_granted('ROLE_ANALYST')"
+          from: [ validated, team_lead_approved, investigation_completed ] # team_lead_approved denies and it goes back to investigate
+          to: under_investigation
+        investigation_complete:
+          guard: "is_granted('ROLE_ANALYST')"
+          from: under_investigation # tag to mark report is ready for approval
+          to: investigation_completed
+        approve_team:
+          guard: "is_granted('ROLE_TEAM_LEAD')"
+          from: investigation_completed
+          to: team_lead_approved
+        complete:
+          guard: "is_granted('ROLE_SUPER_ADMIN')"
+          from: team_lead_approved
+          to: completed
+        abandon:
+          guard: "is_granted('ROLE_SUPER_ADMIN')"
+          from: new_request
+          to: abandoned
+        abandon_request:
+          guard: "is_granted('ROLE_TEAM_LEAD')"
+          from: new_request
+          to: abandoned_request

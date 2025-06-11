@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: normal;
+            font-size: 19px;
+            padding: 5px 5px 5px 5px;
+        }
+
+        .pageBottom {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .background {
+            background-image: url({{  cover_page.front_page }});
+            background-repeat: no-repeat;
+            margin: 5px 5px 0px 5px;
+            height: 1295px;
+            overflow: hidden;
+            background-size: cover;
+        }
+
+        .coverTitle {
+
+            font-size: 60px;
+            overflow: hidden;
+            color: black;
+            -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            text-shadow: 2px 2px 4px black;
+            margin: 0px 0px 0px 75px !important;
+        }
+
+        .coverTitleDate {
+
+            font-size: 30px;
+        }
+
+        .poweredBy {
+            width: 101%;
+            background-color: white;
+            color: black;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .topSpacer {
+            height: 285px !important;
+        }
+
+        .middleSpacer {
+            height: 455px !important;
+        }
+
+        clearBoth {
+            clear: both;
+        }
+
+        .imageSize {
+            height: 80px;
+        }
+
+        hr {
+            color: white;
+        }
+
+        .footerImage {
+            margin: 10px 0px 0px 20px;
+            height: 150px;
+            float: left;
+        }
+
+        .imageCo {
+            height: 150px;
+            margin: 10px 65px 0px 20px;
+            float: right;
+        }
+        .overLayColor {
+        box-shadow: inset 2000px 0 0 0 {{ cover_page.theme_color_overlay_rgb }};
+        border-color: rgba(0, 255, 0, 1);
+        opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="background overLayColor">
+    <div class="topSpacer"></div>
+    <div class="coverTitle">
+        DIGITAL MEDIAL <br>
+        ASSESSMENT REPORT
+        <hr>
+        <div class="coverTitleDate">
+            {{ report_details.date_issued | date("d M Y") }}
+        </div>
+    </div>
+    <div class="middleSpacer"></div>
+    <div class="poweredBy">
+        <div class="brandingImage">
+            {% set cover_logo = cover_page.cover_logo %}
+            <img src="{{ cover_logo }}" class="footerImage">
+        </div>
+        {% if cover_page.branding_type == 'co_branded' %}
+        <div class="imageCo">
+            {% set company_logo = cover_page.company_logo %}
+            <img src="{{ company_logo }}" class="footerImage">
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+</body>
+</html>

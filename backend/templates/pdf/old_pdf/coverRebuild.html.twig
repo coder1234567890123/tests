@@ -1,0 +1,247 @@
+<html>
+<head>
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"#}
+    {#          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+    {#    <link rel="stylesheet" href="{{ config.assetsDir }}/web/css/font-awesome.min.css">#}
+    <link rel="stylesheet" href="{{ config.assetsDir }}/web/css/styles.css">
+    <style>
+        body {
+            font-family: 'Bahnschrift';
+            font-weight: normal;
+            font-style: normal;
+            /*margin: 0px 120px 0px 120px;*/
+        {#font-size: 18px;#}{#background: #000 url({{ config['coverPageUrl'] }});#}{#background-repeat: no-repeat;#}{#background-size: cover;#}
+            background-image: url({{ config['coverPageUrl'] }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            left: 0;
+            right: 0;
+
+        }
+
+        {##coverBackgroundImage {#}
+
+        {#    background-image: url({{ config['coverPageUrl'] }});#}
+        {#    background-repeat: no-repeat;#}
+        {#    background-size: cover;#}
+        {#    opacity: 0.2; /* Here is your opacity */#}
+        {#    position: fixed;#}
+        {#    top: 0px;#}
+        {#    left: 0px;#}
+        {#    width: 10%;#}
+        {#    height: 100%;#}
+        {#    z-index: -90;#}
+        {#    background-color: orange;#}
+        {#    /*opacity: 0.2; !* Here is your opacity *!*/#}
+        {#}#}
+
+        .pad {
+            padding-top: 80px !important;
+        }
+
+        .noBg {
+            background-color: transparent;
+            border: none;
+            border-radius: 0px;
+        }
+
+        .pageBottom {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+        .whiteBand {
+            background: rgba(252, 252, 252, 1) !important;
+            /*background-color: white;*/
+        }
+
+        .coverLogoBox {
+            height: 350px;
+            width: 600px;
+            margin: 0px 0px 10px 0px;
+        }
+
+        .coverLogo {
+            height: 60% !important;
+            float: right !important;
+            margin: 10px 0px 10px 0px;
+        }
+
+        .poweredByLogo {
+            height: 60px !important;
+            float: left !important;
+            margin: 0px 0px 10px 0px;
+        }
+
+        /*.poweredBy {*/
+        /*    color: white;*/
+        /*    font-size: 12px;*/
+        /*}*/
+
+
+        .mainTitle {
+
+        }
+
+        .container {
+            color: #fff;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 100%;
+
+            /*justify-content: center;*/
+            /*align-items: center;*/
+            position: relative;
+            /*z-index: 1;*/
+        }
+
+        .color-overlay {
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 101%;
+            height: 101%;
+            background: orange;
+            /*opacity: .6;*/
+            opacity: 0.4;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .topSpacer {
+            height: 380px !important;
+        }
+
+        .middleSpacer {
+            height: 520px !important;
+        }
+
+        .coverTitle {
+
+            font-size: 50px;
+            color: white;
+            overflow: hidden;
+
+            -webkit-box-shadow: -4px -8px 59px -6px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: -4px -8px 59px -6px rgba(0, 0, 0, 0.75);
+            box-shadow: -4px -8px 59px -6px rgba(0, 0, 0, 0.75);
+
+            margin: 0px 120px 0px 120px !important;
+            /*z-index: 999999;*/
+        }
+
+        .coverTitleDate{
+
+            font-size: 30px;
+        }
+
+        .poweredBy {
+            right: -3px;
+            left: -3px;
+            width: 110%;
+            margin: 0px 0px 0px 0px !important;
+            padding: 0px 0px 0px 0px;
+            background-color: white;
+            color: black;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .imageRize{
+            margin: 15px 0px 0px 0px;
+            height: 100px !important;
+        }
+    </style>
+</head>
+{% block body %}
+<div class="topSpacer"></div>
+<div class="coverTitle">
+    DIGITAL MEDIAL <br>
+    ASSESSMENT REPORT
+    <hr>
+    <div class="coverTitleDate">
+        {{ ("now"|date("d M Y"))| upper }}
+    </div>
+
+</div>
+<div class="middleSpacer"></div>
+<div class="clearBoth"></div>
+<div class="poweredBy">
+    {% if (config['branding'] == 'default') or (config['branding'] == 'co_branded') %}
+
+{#        {{ 'powered by' | upper }}#}
+
+        <img class="imageRize" src="{{ config['farosianFooterLogo'] }}">
+
+    {% else %}
+
+        <img  class="imageRize" src="{{ config['farosianFooterLogo'] }}">
+
+    {% endif %}
+</div>
+{#<div class="container">#}
+{#    #}{#    <div class="color-overlay"></div>#}
+{#</div>#}
+{#<div id="coverBackgroundImage"></div>#}
+{#<div class="coverTitle">#}
+{#    DIGITAL MEDIAL ASSESSMENT REPORT#}
+{#    <hr>#}
+{#    {{ ("now"|date("d M Y"))| upper }}#}
+{#</div>#}
+
+{#<div class="poweredBy">#}
+{#this is at test message#}
+{#</div>#}
+{#<div class="container-fluid">#}
+{#    <div class="container pad">#}
+{#        <div class="row">#}
+{#            <div class="col-xs-8 col-xs-offset-4">#}
+{#                <div class="coverLogoBox">#}
+{#                    <div class="noBg">#}
+{#                        #}{#                        <img class="coverLogo" src="{{ config['logo'] }}">#}
+{#                        #}{#                        <div class="caption">#}
+{#                        #}{#                            <div class="row">#}
+{#                        #}{#                                <div class="col-xs-9 col-xs-offset-2" style="color: white;">#}
+{#                        #}{#                                    <h2 class="text-right coverTitle">{{ config['title'] | upper }}</h2>#}
+{#                        #}{#                                    <h2 class="text-right coverTitle">{{ ("now"|date("d M Y"))| upper }}</h2>#}
+{#                        #}{#                                </div>#}
+{#                        #}{#                            </div>#}
+{#                        #}{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    {% if (config['branding'] == 'default') or (config['branding'] == 'co_branded') %}#}
+{#        <div class="container pageBottom">#}
+{#            <div class="row">#}
+{#                <div class="col-xs-3 poweredBy">#}
+{#                    <div class="poweredBy"><h5 class="">{{ 'powered by' | upper }}</h5></div>#}
+{#                    <div class="noBg">#}
+{#                        <img class="poweredByLogo" src="{{ config['farosianFooterLogo'] }}">#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-xs-9"></div>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <div class="container pageBottom">#}
+{#            <div class="row">#}
+{#                <div class="col-xs-3 poweredBy">#}
+{#                    <div class="noBg">#}
+{#                        <img class="poweredByLogo" src="{{ config['farosianFooterLogo'] }}">#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-xs-9"></div>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#</div>#}
+{% endblock body %}
+</html>

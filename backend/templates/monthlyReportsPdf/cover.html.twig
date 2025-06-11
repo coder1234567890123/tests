@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+        body {
+
+            color: #007400;
+            font-size: 16px;
+
+        }
+
+        .mainBlock {
+            overflow: hidden;
+            margin-top: 10px;
+            font-size: 18px;
+            float: left;
+            padding: 10px 0px 0px 10px;
+            width: 100% !important;
+        }
+
+        .mainBlockcol1 {
+            float: left;
+            width: 80% !important;
+            padding: 0px 0px 0px 10px;
+        }
+
+        .mainBlockcol2 {
+            float: left;
+        }
+
+        .pad {
+            padding-top: 150px !important;
+        }
+
+        .noBg {
+            background-color: transparent;
+            border: none;
+            border-radius: 0px;
+        }
+
+        .pageBottom {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block body %}
+    <img src="{{ configCover['main_image'] }}"/>
+
+    <div class="mainBlock">
+        <div class="mainBlockcol1">
+            <b>Report Date:</b> {{ configCover['date_time_created'] }}
+            <br>
+            <b>Presented By:</b> {{ configCover['report_created_by'] }}
+        </div>
+        <div class="mainBlockcol2">
+            <b>Report From:</b> {{ configCover['report_from'] }}
+            <br>
+            <b>To:</b> {{ configCover['report_to'] }}
+        </div>
+    </div>
+{% endblock body %}

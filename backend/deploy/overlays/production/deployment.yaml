@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api-deployment
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+        - name: api
+          image: acrfarosiansharedneu.azurecr.io/api:e384c168d351fab2d931234c42774eb56443aec6
+          imagePullPolicy: Always
+          env:
+            - name: JWT_SECRET_KEY
+              value: "%kernel.project_dir%/config/jwt/private.pem"
+            - name: JWT_PUBLIC_KEY
+              value: "%kernel.project_dir%/config/jwt/public.pem"
+            - name: JWT_TTL
+              value: "28800"
+            - name: CORS_ALLOW_ORIGIN
+              value: "^https://farocity.farosian.com$"
+            - name: RESET_URL
+              value: "https://farocity.farosian.com/reset-password"
+            - name: SERVICE_BUS_QUEUE
+              value: "prod"
+            - name: SERVICE_BUS_ACTIVE
+              value: "true"
+            - name: APP_ENV
+              value: "dev"
+            - name: INSTRUMENTATION_KEY
+              value: "6b494efc-8bf9-47c1-9466-771fb96cf40a"
+            - name: WKHTMLTOPDF_PATH
+              value: "/usr/local/bin/wkhtmltopdf"
+            - name: WKHTMLTOIMAGE_PATH
+              value: "/usr/local/bin/wkhtmltoimage"
+            - name: API_ERROR_DEV
+              value: "false"
+            - name: DEV_MAIL
+              value: "false"

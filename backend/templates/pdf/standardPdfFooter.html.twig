@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400&display=swap" rel="stylesheet">
+    {# <link rel="stylesheet" href="{{ base_url }}/web/css/bootstrap.min.css"> #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            /*font-family: Arial, Helvetica, sans-serif;*/
+            /*margin: 0px 70px 10px 70px !important;*/
+            /*padding: 0px 0px 0px 0px !important;*/
+            /*font-size: 16px;*/
+            /*height: 100px !important;*/
+            /*border: 1px solid black;*/
+
+        }
+
+
+        .footerSettings {
+            height: 50px !important;
+            /*border: 1px solid black;*/
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px 70px 10px 70px !important;
+            padding: 0px 0px 0px 0px !important;
+            font-size: 16px;
+        }
+
+        .hrColor {
+            border: 1px solid{{ theme_colour }};
+        }
+
+
+        .footerImage {
+            /*border: 1px solid black;*/
+            height: 50px !important;
+            float: right;
+            /*padding: 0px 0px 0px 0px;*/
+            /*margin: 0px 0px 0px 0px;*/
+        }
+
+        .footerImageCo {
+            /*border: 1px solid black;*/
+            height: 50px !important;
+            float: left;
+            /*padding: 0px 0px 0px 0px;*/
+            /*margin: 0px 0px 0px 0px;*/
+        }
+
+
+        .brandingImage {
+            height: 50px;
+            /*float: right;*/
+            float: right;
+            /*padding: 0px 0px 0px 0px;*/
+            /*margin: 0px 0px 0px 0px;*/
+        }
+
+        .brandingImageCo {
+            height: 50px;
+            float: left;
+        }
+
+        .brandingDetails {
+            text-decoration: none !important;
+            color: {{ theme_colour }};
+            margin: 10px 0px 0px 0px !important;
+            /*padding: 10px 0px 0px 0px !important;*/
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 16px;
+            float: left;
+            cursor: pointer;
+        }
+
+        .footerImageCo {
+            height: 120px;
+            /*float: left;*/
+        }
+
+        .brandingDetails:hover {
+            cursor: pointer;
+        }
+
+        .brandingDetails a {
+            font-family: 'Roboto Condensed', sans-serif;
+            text-decoration: none !important;
+            color: {{ theme_colour }};
+
+        }
+
+
+        .brandingUrl a {
+            font-family: 'Roboto Condensed', sans-serif;
+            text-decoration: none !important;
+            color: {{ theme_colour }};
+        }
+
+        .brandingUrl {
+            font-family: 'Roboto Condensed', sans-serif;
+            /*padding: 70px 0px 0px 0px !important;*/
+            /*float: left;*/
+            /*text-align: center;*/
+            text-decoration: none !important;
+            color: {{ theme_colour }};
+        }
+    </style>
+
+{% endblock stylesheets %}
+
+{% block body %}
+
+    <div class="footerSettings">
+        <hr class="hrColor">
+        {# {{ dump(branding) }} #}
+        {% if branding_type == 'co_branded' %}
+
+            <div class="brandingImageCo">
+                {% set company_footer_logo = branding.company_footer_logo %}
+                <img src="{{ company_footer_logo }}" class="footerImageCo">
+            </div>
+        {% endif %}
+
+        {% if branding_type == 'default' %}
+            <div class="brandingDetails">
+                www.farosian.com | <a href="{{ branding.footer_link }}">{{ branding.footer_link }}</a> | 011 468 1557
+            </div>
+
+        {% endif %}
+
+        {% if branding_type == 'white_label' %}
+            <div class="brandingDetails">
+                <a href="{{ branding.footer_link }}">{{ branding.footer_link }}</a>
+            </div>
+        {% endif %}
+
+        <div class="brandingImage">
+            {% set footer_logo = branding.footer_logo %}
+            {# <img src="{{ footer_logo }}" class="footerImage"> #}
+            <img src="{{ footer_logo }}" class="footerImage">
+        </div>
+    </div>
+
+
+{% endblock body %}

@@ -1,0 +1,713 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400&display=swap" rel="stylesheet">
+    {# <link rel="stylesheet" href="{{ base_url }}/web/css/bootstrap.min.css"> #}
+    {# <link rel="stylesheet" href="{{ base_url }}/web/css/styles.css"> #}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
+            font-style: normal;
+            font-size: 16px;
+            margin: 0px 70px 15px 70px;
+            height: 700px !important;
+        }
+
+
+        .mainHeaders {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 40px;
+            font-weight: 500;
+        }
+
+        .subHeadings {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 200;
+            font-size: 27px;
+        }
+
+        .formHeaders {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 24px;
+            font-weight: 200;
+            margin: 0px 0px 10px 0px;
+        }
+
+        .spacerTop {
+            clear: both;
+            height: 40px;
+        }
+
+        .spacer1 {
+            clear: both;
+            height: 60px;
+        }
+
+        .spacer2 {
+            clear: both;
+            height: 40px;
+        }
+
+        .tdPadding {
+            padding: 5px 15px 0px 0px;
+            font-size: 18px;
+        }
+
+        .tdMainSpacing {
+            /*padding: 5px 150px 0px 0px;*/
+            width: 290px !important;
+        }
+
+        .tdMainSpacingBehavour {
+            /*padding: 5px 150px 0px 0px;*/
+            width: 290px !important;
+        }
+
+        .tdSubSpacing {
+            width: 500px !important;
+        }
+
+        .tdSubSpacingBehavour {
+            /*padding: 5px 150px 0px 0px;*/
+            width: 800px !important;
+        }
+
+
+        .tdFindingSpacing {
+            width: 570px;
+            color: dimgrey;
+        }
+
+        .tableWidth {
+
+            width: 100%;
+        }
+
+        .darkerGray {
+            color: dimgrey;
+            font-weight: 400;
+        }
+
+        .proofImage {
+            height: 225px;
+            width: 335px;
+            border: 1px solid lightgrey;
+            margin: 0px 0px 30px 0px;
+        }
+
+        .findingsLists {
+            top: 0;
+            list-style: none;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+            font-size: 16px;
+        }
+
+        .findingsTd1 {
+            width: 450px;
+        }
+
+        .findingsTd2 {
+            width: 450px;
+            padding: 0px 0px 0px 0px;
+        }
+
+        .findingsImage {
+            width: 300px;
+            height: 160px;
+            padding: 0px 0px 20px 0px;
+        }
+
+        .subText {
+            font-size: 14px;
+        }
+
+        .dividerSpace {
+            border-right: 2px solid dimgrey;
+
+        }
+
+        .headerTd1 {
+            width: 250px;
+
+        }
+
+        .headerTd2 {
+            width: 100%;
+        }
+
+        .headerFont {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        .floatRight {
+            float: right !important;
+        }
+
+
+        .socialMediaScores {
+
+            margin: 10px 0px 0px 22px;
+        }
+
+        .page {
+            page-break-before: always;
+        }
+
+        .page-auto {
+            page-break-before: auto;
+        }
+
+        .socialMediaIcon {
+            height: 80px;
+        }
+
+        .confirmationOfIdentity {
+            width: 165px !important;
+        }
+
+        /*************************************/
+        /*      Risk Assessment Style        */
+        /*************************************/
+        .bx-pager .bx-pager-item {
+            position: relative;
+            display: inline-block;
+            float: left;
+            width: 18%;
+            margin-left: 6px;
+            padding: 10px 0;
+            border-width: 0;
+            border-style: solid;
+        }
+
+        .bx-pager .bx-pager-item .bx-pager-link {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, .1),
+            1px -1px 0 rgba(0, 0, 0, .1),
+            -1px 1px 0 rgba(0, 0, 0, .1),
+            1px 1px 0 rgba(0, 0, 0, .1);
+            z-index: 1;
+        }
+
+        .bx-pager .bx-pager-item .bx-pager-link span {
+            display: block;
+        }
+
+        .bx-pager .bx-pager-item:before, .bx-pager .bx-pager-item:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .bx-pager .bx-pager-item:before {
+            top: 0;
+            left: 0;
+            border-top-width: 38px;
+            border-top-color: transparent;
+            border-bottom-width: 40px;
+            border-bottom-color: transparent;
+            border-left-width: 28px;
+            border-left-color: #fff;
+            border-right-width: 0;
+            border-right-color: transparent;
+            border-style: solid;
+            background: none;
+        }
+
+        .bx-pager .bx-pager-item:after {
+            top: -4px;
+            right: -28px;
+            border-top-width: 42px;
+            border-top-color: transparent;
+            border-bottom-width: 44px;
+            border-bottom-color: transparent;
+            border-left-width: 30px;
+            border-right-width: 0;
+            border-right-color: transparent;
+            border-style: solid;
+            background: none;
+            z-index: 1;
+        }
+
+        .danger, .danger:after {
+            background: #F08080;
+            border-color: #F08080;
+        }
+
+        .warning, .warning:after {
+            background: #FFA500;
+            border-color: #FFA500;
+        }
+
+        .moderate, .moderate:after {
+            background: #CCCC00;
+            border-color: #CCCC00;
+        }
+
+        .good, .good:after {
+            background: #3CB371;
+            border-color: #3CB371;
+        }
+
+        .success, .success:after {
+            background: #008000;
+            border-color: #008000;
+        }
+
+        .score {
+            position: absolute;
+            top: -80px;
+            left: 30%;
+            padding: 5%;
+            min-width: 92px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 2px 1px 4px 2px #DDD;
+        }
+
+        .score span {
+            display: block;
+            color: #fff;
+            padding: 18px 10px;
+            background: #D6D6D6;
+            border-radius: 50%;
+        }
+
+        .vcenter {
+
+        }
+    </style>
+
+{% endblock stylesheets %}
+
+{% block body %}
+
+
+
+    <div class="spacerTop"></div>
+    <div class="mainHeaders">CANDIDATE SUMMARY</div>
+    <div class="subHeadings">
+        {{ candidate.name |upper }}
+    </div>
+    <hr>
+    <div class="formHeaders">
+        DETAILS
+    </div>
+    <table class="tableWidth">
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Date Requested
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.date_requested | date("d M Y") }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Date Issued:
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.date_issued | date("d M Y") }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Data Valid As At
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.date_issued | date("d M Y") }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Telephone No
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.tel_no }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Contact Email
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.email }}
+            </td>
+        </tr>
+    </table>
+    <div class="spacer1"></div>
+    <div class="formHeaders">
+        EDUCATION HISTORY
+    </div>
+
+    {% for qualification in candidate.qualification %}
+        <table class="tableWidth">
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Academic Institution
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ qualification.institute }}
+                </td>
+            </tr>
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Year Qualified
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ qualification.end_date }}
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+
+    <div class="spacer1"></div>
+    <div class="formHeaders">
+        PREVIOUS WORK EXPERIENCE
+    </div>
+
+    {% for employment in candidate.employment %}
+        <table class="tableWidth">
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Employer Name
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ employment.employer }}
+                </td>
+            </tr>
+            <tr>
+                <td class="darkerGray tdMainSpacing">
+                    Job Title
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ employment.job_title }}
+                </td>
+            </tr>
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Duration
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ employment.end_date }} {% if employment.currently_employed %} -
+                        <b>Current</b> {% endif %}
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+
+    {# Splits Page #}
+    <div class="page"></div>
+    {# Splits Page #}
+
+    {% if report_types != 'basic' and report_types != 'standard' %}
+
+        <div class="spacerTop"></div>
+        <div class="mainHeaders">
+            DIGITAL MEDIA SUMMARY
+        </div>
+        <div class="spacer1"></div>
+        <div class="row">
+            <div class="col-xs-6">
+                <table class="tableWidth">
+                    <tr>
+                        <td class="darkerGray tdMainSpacingBehavour ">
+                            Creativity
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.creativity }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacingBehavour">
+                            Communication Skills
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.communication_skills }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacingBehavour ">
+                            Business Writing & Writing ability
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.business_writing_ability }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacingBehavour ">
+                            Professional image
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.professional_image }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <table class="tableWidth">
+                    <tr>
+                        <td class="darkerGray tdMainSpacingBehavour ">
+                            Professional engagement
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.professional_engagement }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing ">
+                            Network Reach
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.network_reach }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacingBehavour ">
+                            Network Engagement
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.network_engagement }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing ">
+                            Teamwork Collaboration
+                        </td>
+                        <td class="">
+                            :&nbsp; {{ overall_behavior_scores.teamwork_collaboration }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+    {% if report_types != 'basic' %}
+        <div class="spacer1"></div>
+        <div class="formHeaders">PLATFORM SUMMARY</div>
+        <div class="darkerGray">
+            * Platform conduct scores range from -1.67 - 5, with -1.67 being the lowest score and 5 being the highest.
+            This
+            reflects conduct on the individual platform.
+        </div>
+        <div class="spacer2"></div>
+        <div class="formHeaders">PLATFORM FINDINGS</div>
+
+        {% for get_finding in findings %}
+
+            <hr>
+            <div class="row">
+                <div class="col-xs-4">
+                    {% set icon = get_finding.icon %}
+                    <img src="{{ icon }}" class="socialMediaIcon">
+                    <div class="socialMediaScores">
+                        {{ get_finding.score }}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <ul class="findingsLists darkerGray">
+                        {% for comments in get_finding.comments %}
+                            <li>{{ comments }}</li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+        {# Splits Page #}
+        <div class="page"></div>
+        {# Splits Page #}
+        {% if report_types != 'basic' and report_types != 'standard' %}
+            <div class="spacerTop"></div>
+            <div class="mainHeaders">
+                DETAILED PLATFORM
+            </div>
+
+
+            <div class="spacer1"></div>
+
+        {% endif %}
+
+        {% if report_types != 'basic' and report_types != 'standard' %}
+            {% for summary in detailed_summary %}
+                {# <pre> #}
+
+                {# {{ dump(summary.report_summary.profile_hits) }} #}
+                {# </pre> #}
+                <span class="subHeadings">
+        {{ summary.report_summary.social_media | upper }}
+    </span>
+                <span class="floatRight headerFont">
+        PLATFORM SCORE:&nbsp;{{ summary.report_summary.score }}
+
+    </span>
+                <hr>
+
+                {% if report_types == 'high_profile' or report_types == 'full' %}
+                    <table class="">
+                        <tr>
+                            <td class="subText darkerGray">
+                                Number of Profile Hits |&nbsp;
+                            </td>
+                            <td class="subText">
+                                &nbsp;&nbsp; {{ summary.report_summary.profile_hits }} &nbsp;
+                            </td>
+                            <td class="subText darkerGray">
+                                Number of True Hits |&nbsp;
+                            </td>
+                            <td class="subText">
+                                &nbsp;&nbsp; {{ summary.report_summary.true_hits }} &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="">
+                        <tr>
+                            <td class="subText darkerGray confirmationOfIdentity">
+                                Confirmation of Identity | &nbsp;
+                            </td>
+                            <td class="subText">
+                                {{ summary.report_summary.confirmation_of_identity }}
+                            </td>
+                        </tr>
+                    </table>
+
+                {% endif %}
+
+                <div class="spacer2"></div>
+
+                {% if report_types != 'standard'  and  report_types != 'basic' %}
+                    <table class="formHeaders">
+                        <tr>
+                            <td class="findingsTd1">
+                                NOTEWORTHY FINDINGS
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    {% for noteworthy_findingsCheck in summary.report_summary.noteworthy_findings %}
+
+                        {% if  noteworthy_findingsCheck == true %}
+
+                            {% for noteworthy_findings in noteworthy_findingsCheck %}
+                                {% if noteworthy_findings %}
+
+                                    <table class="formHeaders">
+                                        <tr>
+                                            <td class="findingsTd1">
+                                                <ul class="findingsLists darkerGray ">
+                                                    <li>
+                                                        {{ noteworthy_findings.comment }}
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                {% set url = noteworthy_findings.proof_image %}
+                                                <img src="{{ url }}"
+                                                     class="findingsImage">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% endif %}
+                {# #}{# Splits Page #}
+                <div class="page"></div>
+                {# #}{# Splits Page #}
+
+            {% endfor %}
+            {# Splits Page #}
+            <div class="page"></div>
+            {# Splits Page #}
+        {% endif %}
+    {% endif %}
+    <div class="spacerTop"></div>
+    <div class="mainHeaders">
+        RISK SCORE
+    </div>
+
+    <div class="spacer1"></div>
+
+    <div style="height: 60px; position: relative; clear: both;"></div>
+    <div class="row risk-assessment">
+        <div class="bx-pager bx-default-pager">
+            <div class="bx-pager-item success">
+                {% if final_section.risks_score|round <= 25 %}
+                    <div class="score"><span> {{ final_section.risks_score }}% </span></div>
+                {% endif %}
+                <div class="bx-pager-link">
+                    Very Low <br/>Risk <span>0% - 25%</span>
+                </div>
+            </div>
+            <div class="bx-pager-item good ">
+                {% if ( final_section.risks_score|round  >= 26) and ( final_section.risks_score|round  <= 35 ) %}
+                    <div class="score"><span> {{ final_section.risks_score }}% </span></div>
+                {% endif %}
+                <div class="bx-pager-link">
+                    Low <br/>Risk <span>26% -  35%</span>
+                </div>
+            </div>
+            <div class="bx-pager-item moderate">
+                {% if ( final_section.risks_score|round >= 36  ) and ( final_section.risks_score|round <= 55 ) %}
+                    <div class="score"><span> {{ final_section.risks_score }}% </span></div>
+                {% endif %}
+                <div class="bx-pager-link">
+                    Moderate <br/>Risk <span>36% - 55%</span>
+                </div>
+            </div>
+            <div class="bx-pager-item warning ">
+                {% if ( final_section.risks_score|round   >= 56 ) and ( final_section.risks_score|round  <= 80 ) %}
+                    <div class="score"><span> {{ final_section.risks_score }}% </span></div>
+                {% endif %}
+                <div class="bx-pager-link">
+                    High <br/>Risk <span>56% -  80%</span>
+                </div>
+            </div>
+            <div class="bx-pager-item danger">
+                {% if ( final_section.risks_score   >= 81 ) %}
+                    <div class="score"><span> {{ final_section.risks_score }}%</span></div>
+                {% endif %}
+                <div class="bx-pager-link ">
+                    Extreme <br/>Risk <span>81% - 100%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer1"></div>
+
+    {{ final_section.risk_comment | raw }}
+    <div class="spacer1"></div>
+    <div class="formHeaders">
+        DISCLAIMER
+    </div>
+
+    {{ final_section.disclaimer | raw }}
+
+{% endblock body %}

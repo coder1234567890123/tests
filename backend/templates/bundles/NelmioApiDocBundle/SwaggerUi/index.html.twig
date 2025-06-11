@@ -1,0 +1,15 @@
+{% extends '@!NelmioApiDoc/SwaggerUi/index.html.twig' %}
+
+{% block header %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body > header {
+            display: none;
+        }
+        body {
+            margin-top: 0;
+        }
+    </style>
+{% endblock stylesheets %}

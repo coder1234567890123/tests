@@ -1,0 +1,66 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        user:
+            id: App\Security\UserProvider
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+        App\Security\UserProvider:
+            algorithm: bcrypt
+            cost: 12
+    firewalls:
+        api_login:
+            pattern: ^/api/login
+            anonymous: true
+            stateless: true
+            json_login:
+                check_path: /api/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+        api:
+            pattern: ^/api/(?!doc|reset\-password).*
+            stateless: true
+            guard:
+                authenticators:
+                - lexik_jwt_authentication.jwt_token_authenticator
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            form_login:
+                default_target_path: admin
+                provider: user
+            logout:
+                path: /logout
+                target: /
+            guard:
+                provider: user
+                authenticators:
+                - App\Security\UserAuthenticator
+    access_control:
+    - { path: ^/internal_api*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/*, roles: IS_AUTHENTICATED_FULLY }
+
+    access_decision_manager:
+        strategy: affirmative
+        allow_if_all_abstain: false
+    
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ROLE_TEAM_LEAD, ROLE_ADMIN_USER]
+        ROLE_TEAM_LEAD: ROLE_ANALYST
+        ROLE_ANALYST: []
+        ROLE_ADMIN_USER: [ROLE_USER_MANAGER,ROLE_USER_STANDARD]
+        ROLE_USER_MANAGER: ROLE_USER_STANDARD
+        ROLE_USER_STANDARD: []
+
+

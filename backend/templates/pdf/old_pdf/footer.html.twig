@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            background: {{ config['themeColor'] }} !important;
+            color: white;
+        }
+        .pad {
+            padding-top:5px;
+            padding-bottom:5px;
+        }
+
+        .link {
+            color: white;
+            /*To Do fix this issue*/
+            {#color: {{ config['fontColor'] }} !important;#}
+            padding-top: 25px;
+            font-weight: 700;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block body %}
+    <!-- Footer -->
+    <footer class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    {% if (config['branding'] == 'default') or (config['branding'] == 'co_branded') %}
+                        <img src="{{config['farosianLogo']}}"  height="60" class="rounded pull-left pad">
+                    {% else %}
+                        <img src="{{config['logo']}}"  height="60" class="rounded pull-left pad">
+                    {% endif %}
+                </div>
+                <div class="col-xs-6">
+                    {% if config['branding'] == 'default' %}
+                        <a href="{{ config['farosianLink'] }}" class="pull-right link">{{ config['farosianLink'] }}</a>
+                    {% endif %}
+
+                    {% if config['branding'] == 'co_branded' %}
+                        <img src="{{config['logo']}}"  height="60" class="rounded pull-right pad">
+                    {% endif %}
+
+                     {% if config['branding'] == 'white_label' %}
+                        <a href="{{ config['link'] }}" class="pull-right link">{{ config['link'] }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer -->
+{% endblock body %}

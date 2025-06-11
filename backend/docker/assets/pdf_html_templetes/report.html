@@ -1,0 +1,1300 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ base_url }}/web/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ base_url }}/web/css/styles.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--<script type="text/javascript" src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>-->
+<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        font-style: normal;
+        font-size: 16px;
+        margin: 0px 70px 15px 70px;
+        height: 700px !important;
+    }
+
+
+    .mainHeaders {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 40px;
+        font-weight: 500;
+        background-image: linear-gradient(to right, black, #156D63);
+        color: white;
+        padding: 0px 0px 0px 40px;
+    }
+
+    .subHeadings {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: 200;
+        font-size: 27px;
+    }
+
+    .formHeaders {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 24px;
+        font-weight: 200;
+        margin: 0px 0px 0px 0px !important;
+        padding: 0px 0px 0px 0px !important;
+        width: 100% !important;
+    }
+
+    /*ul.noBulletsInlines{*/
+
+    /*    list-style-type: none;*/
+
+    /*}*/
+
+    ul.noBulletsInlines li {
+        width: 900px !important;
+        height: 60px;
+        float: left;
+        margin: 0px 0px 0px 0px !important;
+        padding: 0px 0px 0px 0px !important;
+        list-style-type: none;
+    }
+
+    .row {
+        width: 100% !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+    }
+
+    .block {
+        /*width: 100px;*/
+        width: auto;
+    }
+
+
+    .detailHeader1 {
+        width: 10% !important;
+        font-weight: bolder;
+        float: right;
+    }
+
+    .detailHeader2 {
+        width: 90%;
+        /*width: 1000px !important;*/
+        /*width: auto !important;*/
+        margin: 0px 10px 0px 0px;
+        padding: 2px 0px 0px 0px;
+
+    }
+
+
+    .detailHeader3 {
+        /*width: 10% !important;*/
+        width: 60px !important;
+        float: right;
+
+    }
+
+
+    .generalHeader1 {
+        width: 20% !important;
+        font-weight: bolder;
+        float: right;
+        padding: 8px 0px 0px 0px;
+    }
+
+    .generalHeader2 {
+        width: 80%;
+        /*width: 1000px !important;*/
+        /*width: auto !important;*/
+        margin: 0px 10px 0px 0px;
+        padding: 5px 0px 0px 0px;
+
+    }
+
+
+    .generalHeader3 {
+        /*width: 10% !important;*/
+        width: 60px !important;
+        float: right;
+
+    }
+
+
+    .mainHeaderIcon {
+
+        height: 80px;
+        float: right;
+        margin: 0px 20px 0px 0px;
+        z-index: 500;
+    }
+
+    /*.detailHeader1 {*/
+
+    /*    width: auto !important;*/
+    /*    padding: 0px 15px 0px 5px;*/
+    /*    font-weight: bolder;*/
+    /*}*/
+
+    /*.detailHeader2 {*/
+
+    /*    width: 90% !important;*/
+    /*    padding: 0px 15px 0px 5px;*/
+    /*    margin: 0px 15px 0px 0px;*/
+    /*}*/
+
+    /*.detailHeader3 {*/
+
+    /*    width: 90% !important;*/
+    /*    padding: 0px 15px 0px 5px;*/
+    /*    margin: 0px 15px 0px 0px;*/
+    /*}*/
+
+    .formHeadersIcon {
+        /*fill: #166E65;*/
+        height: 55px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    .mainReportColorBackGround {
+        fill: #166E65;
+    }
+
+    .mainReportColorOutLine {
+        fill: #ffffff;
+    }
+
+    .contentBody {
+
+        margin: 0px 50px 0px 50px;
+    }
+
+    .lineThinkness {
+        border: 1px solid black;
+    }
+
+    .formHeadersLi3 {
+
+        width: auto !important;
+    }
+
+    /*li.liInline{*/
+
+    /*    display: inline;*/
+    /*}*/
+
+    .circle-chart__circle--negative {
+        transform: rotate(-90deg) scale(1, -1); /* 1, 2, 3 */
+    }
+
+    .circle-chart__info {
+        animation: circle-chart-appear 2s forwards;
+        opacity: 0;
+        transform: translateY(0.3em);
+    }
+
+    @keyframes circle-chart-fill {
+        to {
+            stroke-dasharray: 0 100;
+        }
+    }
+
+    @keyframes circle-chart-appear {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Layout styles only, not needed for functionality */
+    html {
+        font-family: sans-serif;
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+
+  /*  !***/
+  /** 1. The `reverse` animation direction plays the animation backwards*/
+  /**    which makes it start at the stroke offset 100 which means displaying*/
+  /**    no stroke at all and animating it to the value defined in the SVG*/
+  /**    via the inline `stroke-dashoffset` attribute.*/
+  /** 2. Rotate by -90 degree to make the starting point of the*/
+  /**    stroke the top of the circle.*/
+  /** 3. Using CSS transforms on SVG elements is not supported by Internet Explorer*/
+  /**    and Edge, use the transform attribute directly on the SVG element as a*/
+  /** .  workaround (https://markus.oberlehner.net/blog/pure-css-animated-svg-circle-chart/#part-4-internet-explorer-strikes-back).*/
+  /**!*/
+  /*  .circle-chart__circle {*/
+  /*      animation: circle-chart-fill 2s reverse; !* 1 *!*/
+  /*      transform: rotate(-90deg); !* 2, 3 *!*/
+  /*      transform-origin: center; !* 4 *!*/
+  /*  }*/
+
+    /**
+     * 1. Rotate by -90 degree to make the starting point of the
+     *    stroke the top of the circle.
+     * 2. Scaling mirrors the circle to make the stroke move right
+     *    to mark a positive chart value.
+     * 3. Using CSS transforms on SVG elements is not supported by Internet Explorer
+     *    and Edge, use the transform attribute directly on the SVG element as a
+     * .  workaround (https://markus.oberlehner.net/blog/pure-css-animated-svg-circle-chart/#part-4-internet-explorer-strikes-back).
+     */
+    .circle-chart__circle--negative {
+        transform: rotate(0deg) scale(1,-1); /* 1, 2, 3 */
+    }
+
+    .circle-chart__info {
+        animation: circle-chart-appear 2s forwards;
+        opacity: 0;
+        transform: translateY(0.3em);
+    }
+
+    @keyframes circle-chart-fill {
+        to { stroke-dasharray: 0 100; }
+    }
+
+    @keyframes circle-chart-appear {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+    .grid {
+        display: grid;
+        grid-column-gap: 1em;
+        grid-row-gap: 1em;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media (min-width: 31em) {
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .spacerTop {
+        clear: both;
+        height: 40px;
+    }
+
+    .spacer1 {
+        clear: both;
+        height: 60px;
+    }
+
+    .spacer2 {
+        clear: both;
+        height: 40px;
+    }
+
+    .tdPadding {
+        padding: 5px 15px 0px 0px;
+        font-size: 18px;
+    }
+
+    .tdMainSpacing {
+        /*padding: 5px 150px 0px 0px;*/
+        width: 290px !important;
+    }
+
+    .tdMainSpacingBehavour {
+        /*padding: 5px 150px 0px 0px;*/
+        width: 290px !important;
+    }
+
+    .tdSubSpacing {
+        width: 500px !important;
+    }
+
+    .tdSubSpacingBehavour {
+        /*padding: 5px 150px 0px 0px;*/
+        width: 800px !important;
+    }
+
+
+    .tdFindingSpacing {
+        width: 570px;
+        color: dimgrey;
+    }
+
+    .tableWidth {
+
+        width: 100%;
+    }
+
+    .darkerGray {
+        color: dimgrey;
+        font-weight: 400;
+    }
+
+    .proofImage {
+        height: 225px;
+        width: 335px;
+        border: 1px solid lightgrey;
+        margin: 0px 0px 30px 0px;
+    }
+
+    .findingsLists {
+        top: 0;
+        list-style: none;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+        font-size: 16px;
+    }
+
+    .findingsTd1 {
+        width: 450px;
+    }
+
+    .findingsTd2 {
+        width: 450px;
+        padding: 0px 0px 0px 0px;
+    }
+
+    .findingsImage {
+        width: 300px;
+        height: 160px;
+        padding: 0px 0px 20px 0px;
+    }
+
+    .subText {
+        font-size: 14px;
+    }
+
+    .dividerSpace {
+        border-right: 2px solid dimgrey;
+
+    }
+
+    .headerTd1 {
+        width: 250px;
+
+    }
+
+    .headerTd2 {
+        width: 100%;
+    }
+
+    .headerFont {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .floatRight {
+        float: right !important;
+    }
+
+    .floatLeft {
+        float: left !important;
+    }
+
+    .behaviouralPadding {
+        margin: 0px 0px 5px 0px;
+    }
+
+    .progressBarHeight {
+        height: 10px;
+    }
+
+    .socialMediaScores {
+
+        margin: 10px 0px 0px 22px;
+    }
+
+    .page {
+        page-break-before: always;
+    }
+
+    .page-auto {
+        page-break-before: auto;
+    }
+
+    .socialMediaIcon {
+        height: 80px;
+    }
+
+    .confirmationOfIdentity {
+        width: 165px !important;
+    }
+
+    .clearBoth {
+        clear: both;
+    }
+
+    .progress-bar {
+        background-color: #156D63 !important;
+    }
+
+
+    /*.progress-bar-purple {*/
+    /*    background-color: purple !important;*/
+    /*}*/
+    /*.progress-bar-orange {*/
+    /*    background-color: orange !important;*/
+    /*}*/
+
+    /*************************************/
+    /*      Risk Assessment Style        */
+    /*************************************/
+    .bx-pager .bx-pager-item {
+        position: relative;
+        display: inline-block;
+        float: left;
+        width: 18%;
+        margin-left: 6px;
+        padding: 10px 0;
+        border-width: 0;
+        border-style: solid;
+    }
+
+    .bx-pager .bx-pager-item .bx-pager-link {
+        font-size: 13px;
+        line-height: 1.5;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, .1),
+        1px -1px 0 rgba(0, 0, 0, .1),
+        -1px 1px 0 rgba(0, 0, 0, .1),
+        1px 1px 0 rgba(0, 0, 0, .1);
+        z-index: 1;
+    }
+
+    .bx-pager .bx-pager-item .bx-pager-link span {
+        display: block;
+    }
+
+    .bx-pager .bx-pager-item:before, .bx-pager .bx-pager-item:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
+
+    .bx-pager .bx-pager-item:before {
+        top: 0;
+        left: 0;
+        border-top-width: 38px;
+        border-top-color: transparent;
+        border-bottom-width: 40px;
+        border-bottom-color: transparent;
+        border-left-width: 28px;
+        border-left-color: #fff;
+        border-right-width: 0;
+        border-right-color: transparent;
+        border-style: solid;
+        background: none;
+    }
+
+    .bx-pager .bx-pager-item:after {
+        top: -4px;
+        right: -28px;
+        border-top-width: 42px;
+        border-top-color: transparent;
+        border-bottom-width: 44px;
+        border-bottom-color: transparent;
+        border-left-width: 30px;
+        border-right-width: 0;
+        border-right-color: transparent;
+        border-style: solid;
+        background: none;
+        z-index: 1;
+    }
+
+    .danger, .danger:after {
+        background: #F08080;
+        border-color: #F08080;
+    }
+
+    .warning, .warning:after {
+        background: #FFA500;
+        border-color: #FFA500;
+    }
+
+    .moderate, .moderate:after {
+        background: #CCCC00;
+        border-color: #CCCC00;
+    }
+
+    .good, .good:after {
+        background: #3CB371;
+        border-color: #3CB371;
+    }
+
+    .success, .success:after {
+        background: #008000;
+        border-color: #008000;
+    }
+
+    .score {
+        position: absolute;
+        top: -80px;
+        left: 30%;
+        padding: 5%;
+        min-width: 92px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 2px 1px 4px 2px #DDD;
+    }
+
+    .score span {
+        display: block;
+        color: #fff;
+        padding: 18px 10px;
+        background: #D6D6D6;
+        border-radius: 50%;
+    }
+
+    .vcenter {
+
+    }
+
+    .svgFill {
+        fill: #ff0000;
+    }
+
+    .fishes
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .fish {
+        position: absolute;
+        top: 228px;
+        left: 176px;
+    }
+
+    .spanTest1 {
+        font-weight: bolder;
+        font-family: 'Roboto Condensed', sans-serif;
+        display: inline-block;
+        font-size: 25px;
+    }
+
+    .spanTest2 {
+
+    }
+
+    .spanTest3 {
+        height: 50px !important;
+    }
+
+    .testRow {
+        /*width: 900px !important;*/
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid black;
+    }
+
+    ul.test {
+        column-count: 2;
+        column-rule: dotted 1px #333;
+        list-style-type: none;
+    }
+
+    .circle-chart__circle {
+        /*animation: circle-chart-fill 2s reverse; !* 1 *!*/
+        /*transform: rotate(-90deg); !* 2, 3 *!*/
+        transform-origin: center; /* 4 */
+        -webkit-transform: rotate(45deg); /* WebKit */
+        -moz-transform: rotate(45deg); /* Mozilla */
+        -o-transform: rotate(45deg); /* Opera */
+        -ms-transform: rotate(45deg); /* Internet Explorer */
+        transform: rotate(45deg); /* CSS3 */
+    }
+</style>
+<div class="spacerTop"></div>
+
+
+<div class="grid">
+    <section>
+        <h2>Positive chart value</h2>
+        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <circle class="circle-chart__circle" stroke="#00acc1" stroke-width="2" stroke-dasharray="90,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <g class="circle-chart__info">
+                <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">30%</text>
+                <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Yay 30% progress!</text>
+            </g>
+        </svg>
+    </section>
+
+    <section>
+        <h2>Negative chart value</h2>
+        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <circle class="circle-chart__circle circle-chart__circle--negative" stroke="#00acc1" stroke-width="2" stroke-dasharray="10,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <g class="circle-chart__info">
+                <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">-10%</text>
+                <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">Oh no :(</text>
+            </g>
+        </svg>
+    </section>
+</div>
+
+<div class="mainHeaders">CANDIDATE SUMMARY <span> <svg class="mainHeaderIcon" id="Layer_1" data-name="Layer 1"
+                                                       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><defs><style>.cls-1 {
+    fill: #fff;
+}
+
+.cls-2 {
+    fill: #0a222f;
+}</style></defs><path class="cls-1"
+                      d="M25,49.64a3,3,0,0,1-2.12-.88L1.24,27.12a3,3,0,0,1,0-4.24L22.88,1.24a3,3,0,0,1,4.24,0L48.76,22.88a3,3,0,0,1,0,4.24L27.12,48.76A3,3,0,0,1,25,49.64Z"/><path
+        class="cls-2"
+        d="M25,.77a2.57,2.57,0,0,1,1.83.76L48.47,23.17a2.59,2.59,0,0,1,0,3.66L26.83,48.47a2.58,2.58,0,0,1-3.66,0L1.53,26.83a2.59,2.59,0,0,1,0-3.66L23.17,1.53A2.57,2.57,0,0,1,25,.77M25,0a3.43,3.43,0,0,0-2.41,1L1,22.59a3.41,3.41,0,0,0,0,4.82L22.59,49.05a3.4,3.4,0,0,0,4.82,0L49.05,27.41a3.41,3.41,0,0,0,0-4.82L27.41,1A3.43,3.43,0,0,0,25,0Z"/><path
+        d="M36,33.61H14a.19.19,0,0,1,0-.07,8.07,8.07,0,0,1,1.71-5.17,8.72,8.72,0,0,1,3.94-2.68,15,15,0,0,1,5.15-.85,15.81,15.81,0,0,1,5.29.77A9.06,9.06,0,0,1,33.88,28a7.38,7.38,0,0,1,1.93,3.93C35.9,32.44,35.94,33,36,33.61ZM34.21,32c0-.06,0-.12,0-.17a5.51,5.51,0,0,0-2-3.25,9.52,9.52,0,0,0-4.77-1.88,16.8,16.8,0,0,0-4.31-.08,11.62,11.62,0,0,0-3.92,1,6.06,6.06,0,0,0-3.07,3,5.21,5.21,0,0,0-.4,1.36Z"/><path
+        d="M31.57,16.05A6.59,6.59,0,1,1,25,9.46,6.58,6.58,0,0,1,31.57,16.05ZM25,21A4.94,4.94,0,1,0,20,16,5,5,0,0,0,25,21Z"/></svg></span>
+</div>
+<div class="contentBody">
+    <div class="subHeadings spacerTop">
+        JANE DOE
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    TWITTER SCORE:
+
+
+    <!--    <table>-->
+<!--        <td>-->
+<!--            DETAILS-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <div class="centerLine"></div>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <div class="spanIcon">-->
+<!--                <svg class="" id="Layer_1" data-name="Layer 1"-->
+<!--                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">-->
+<!--                    <path class="mainReportColorBackGround"-->
+<!--                          d="M25,49.64a3,3,0,0,1-2.12-.88L1.24,27.12a3,3,0,0,1,0-4.24L22.88,1.24a3,3,0,0,1,4.24,0L48.76,22.88a3,3,0,0,1,0,4.24L27.12,48.76A3,3,0,0,1,25,49.64Z"/>-->
+<!--                    <path class="mainReportColorOutLine"-->
+<!--                          d="M25,.77a2.57,2.57,0,0,1,1.83.76L48.47,23.17a2.59,2.59,0,0,1,0,3.66L26.83,48.47a2.58,2.58,0,0,1-3.66,0L1.53,26.83a2.59,2.59,0,0,1,0-3.66L23.17,1.53A2.57,2.57,0,0,1,25,.77M25,0a3.43,3.43,0,0,0-2.41,1L1,22.59a3.41,3.41,0,0,0,0,4.82L22.59,49.05a3.4,3.4,0,0,0,4.82,0L49.05,27.41a3.41,3.41,0,0,0,0-4.82L27.41,1A3.43,3.43,0,0,0,25,0Z"/>-->
+<!--                    <path class="mainReportColorOutLine"-->
+<!--                          d="M36,33.61H14a.19.19,0,0,1,0-.07,8.07,8.07,0,0,1,1.71-5.17,8.72,8.72,0,0,1,3.94-2.68,15,15,0,0,1,5.15-.85,15.81,15.81,0,0,1,5.29.77A9.06,9.06,0,0,1,33.88,28a7.38,7.38,0,0,1,1.93,3.93C35.9,32.44,35.94,33,36,33.61ZM34.21,32c0-.06,0-.12,0-.17a5.51,5.51,0,0,0-2-3.25,9.52,9.52,0,0,0-4.77-1.88,16.8,16.8,0,0,0-4.31-.08,11.62,11.62,0,0,0-3.92,1,6.06,6.06,0,0,0-3.07,3,5.21,5.21,0,0,0-.4,1.36Z"/>-->
+<!--                    <path class="mainReportColorOutLine"-->
+<!--                          d="M31.57,16.05A6.59,6.59,0,1,1,25,9.46,6.58,6.58,0,0,1,31.57,16.05ZM25,21A4.94,4.94,0,1,0,20,16,5,5,0,0,0,25,21Z"/>-->
+<!--                </svg>-->
+<!--            </div>-->
+<!--            </span>-->
+<!--        </td>-->
+<!--    </table>-->
+
+<!--    <div class="testRow">-->
+<!--        <span class="spanTest1">DETAILS</span>-->
+<!--        <span class="spanTest1"><div class="centerLine"></div></span>-->
+<!--        <span class="spanTest3">-->
+<!--            <div class="spanIcon">-->
+<!--                   <svg class="" id="Layer_1" data-name="Layer 1"-->
+<!--                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">-->
+<!--                 <path class="mainReportColorBackGround"-->
+<!--                       d="M25,49.64a3,3,0,0,1-2.12-.88L1.24,27.12a3,3,0,0,1,0-4.24L22.88,1.24a3,3,0,0,1,4.24,0L48.76,22.88a3,3,0,0,1,0,4.24L27.12,48.76A3,3,0,0,1,25,49.64Z"/>-->
+<!--                 <path class="mainReportColorOutLine"-->
+<!--                       d="M25,.77a2.57,2.57,0,0,1,1.83.76L48.47,23.17a2.59,2.59,0,0,1,0,3.66L26.83,48.47a2.58,2.58,0,0,1-3.66,0L1.53,26.83a2.59,2.59,0,0,1,0-3.66L23.17,1.53A2.57,2.57,0,0,1,25,.77M25,0a3.43,3.43,0,0,0-2.41,1L1,22.59a3.41,3.41,0,0,0,0,4.82L22.59,49.05a3.4,3.4,0,0,0,4.82,0L49.05,27.41a3.41,3.41,0,0,0,0-4.82L27.41,1A3.43,3.43,0,0,0,25,0Z"/>-->
+<!--                 <path class="mainReportColorOutLine"-->
+<!--                       d="M36,33.61H14a.19.19,0,0,1,0-.07,8.07,8.07,0,0,1,1.71-5.17,8.72,8.72,0,0,1,3.94-2.68,15,15,0,0,1,5.15-.85,15.81,15.81,0,0,1,5.29.77A9.06,9.06,0,0,1,33.88,28a7.38,7.38,0,0,1,1.93,3.93C35.9,32.44,35.94,33,36,33.61ZM34.21,32c0-.06,0-.12,0-.17a5.51,5.51,0,0,0-2-3.25,9.52,9.52,0,0,0-4.77-1.88,16.8,16.8,0,0,0-4.31-.08,11.62,11.62,0,0,0-3.92,1,6.06,6.06,0,0,0-3.07,3,5.21,5.21,0,0,0-.4,1.36Z"/>-->
+<!--                 <path class="mainReportColorOutLine"-->
+<!--                       d="M31.57,16.05A6.59,6.59,0,1,1,25,9.46,6.58,6.58,0,0,1,31.57,16.05ZM25,21A4.94,4.94,0,1,0,20,16,5,5,0,0,0,25,21Z"/>-->
+<!--                 </svg>-->
+<!--            </div>-->
+<!--            </span>-->
+
+
+        <div class="clearBoth"></div>
+        <br>
+        <br>
+        <br>
+        <br>
+<!--    <div style="position: relative; left: 0; top: 0;">-->
+<!--    <div class="grid fishes">-->
+<!--        <section>-->
+
+<!--            <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />-->
+<!--                <circle class="circle-chart__circle" stroke="#00acc1" stroke-width="2" stroke-dasharray="30,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />-->
+<!--                <g class="circle-chart__info">-->
+
+<!--&lt;!&ndash;                    <svg width="200" height="200"&ndash;&gt;-->
+<!--&lt;!&ndash;                         xmlns="http://www.w3.org/2000/svg">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <image href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png" height="200" width="200"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </svg>&ndash;&gt;-->
+
+
+<!--                    &lt;!&ndash;-->
+
+<!--                                     <text class="circle-chart__subline" x="10" y="20.5" alignment-baseline="central" text-anchor="middle" font-size="2">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                     <img  src="https://tinypng.com/images/example-orig.png" style="height: 20px;" >&ndash;&gt;-->
+<!--&lt;!&ndash;                    </text>&ndash;&gt;-->
+
+<!--                </g>-->
+<!--            </svg>-->
+<!--        </section>-->
+
+<!--    </div>-->
+
+<!--    </div>-->
+
+<!--    <img  class="fish" src="https://tinypng.com/images/example-orig.png" style="height: 80px;" >-->
+
+
+    <!--    Start header-->
+    <div class="clearBoth"></div>
+    <br>
+    <div class="row spacerTop formHeaders">
+        <span class="detailHeader1 spacerTop">DETAILS</span>
+        <span class="detailHeader2"> <hr class="lineThinkness"></span>
+        <span class="detailHeader3">
+            <svg class="formHeadersIcon" id="Layer_1" data-name="Layer 1"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <path class="mainReportColorBackGround"
+                          d="M25,49.64a3,3,0,0,1-2.12-.88L1.24,27.12a3,3,0,0,1,0-4.24L22.88,1.24a3,3,0,0,1,4.24,0L48.76,22.88a3,3,0,0,1,0,4.24L27.12,48.76A3,3,0,0,1,25,49.64Z"/>
+                    <path class="mainReportColorOutLine"
+                          d="M25,.77a2.57,2.57,0,0,1,1.83.76L48.47,23.17a2.59,2.59,0,0,1,0,3.66L26.83,48.47a2.58,2.58,0,0,1-3.66,0L1.53,26.83a2.59,2.59,0,0,1,0-3.66L23.17,1.53A2.57,2.57,0,0,1,25,.77M25,0a3.43,3.43,0,0,0-2.41,1L1,22.59a3.41,3.41,0,0,0,0,4.82L22.59,49.05a3.4,3.4,0,0,0,4.82,0L49.05,27.41a3.41,3.41,0,0,0,0-4.82L27.41,1A3.43,3.43,0,0,0,25,0Z"/>
+                    <path class="mainReportColorOutLine"
+                          d="M36,33.61H14a.19.19,0,0,1,0-.07,8.07,8.07,0,0,1,1.71-5.17,8.72,8.72,0,0,1,3.94-2.68,15,15,0,0,1,5.15-.85,15.81,15.81,0,0,1,5.29.77A9.06,9.06,0,0,1,33.88,28a7.38,7.38,0,0,1,1.93,3.93C35.9,32.44,35.94,33,36,33.61ZM34.21,32c0-.06,0-.12,0-.17a5.51,5.51,0,0,0-2-3.25,9.52,9.52,0,0,0-4.77-1.88,16.8,16.8,0,0,0-4.31-.08,11.62,11.62,0,0,0-3.92,1,6.06,6.06,0,0,0-3.07,3,5.21,5.21,0,0,0-.4,1.36Z"/>
+                    <path class="mainReportColorOutLine"
+                          d="M31.57,16.05A6.59,6.59,0,1,1,25,9.46,6.58,6.58,0,0,1,31.57,16.05ZM25,21A4.94,4.94,0,1,0,20,16,5,5,0,0,0,25,21Z"/>
+                </svg></span>
+    </div>
+    <div class="clearBoth"></div>
+    <br>
+    <!--    end header-->
+
+
+    <hr>
+    <div class="formHeaders spacerTop">
+        <ul class="noBulletsInlines">
+            <li class="detailHeader1">
+                DETAILS
+            </li>
+            <li class="detailHeader2">
+                <hr class="lineThinkness">
+            </li>
+            <li class="detailHeader3">
+                <svg class="formHeadersIcon" id="Layer_1" data-name="Layer 1"
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <path class="mainReportColorBackGround"
+                          d="M25,49.64a3,3,0,0,1-2.12-.88L1.24,27.12a3,3,0,0,1,0-4.24L22.88,1.24a3,3,0,0,1,4.24,0L48.76,22.88a3,3,0,0,1,0,4.24L27.12,48.76A3,3,0,0,1,25,49.64Z"/>
+                    <path class="mainReportColorOutLine"
+                          d="M25,.77a2.57,2.57,0,0,1,1.83.76L48.47,23.17a2.59,2.59,0,0,1,0,3.66L26.83,48.47a2.58,2.58,0,0,1-3.66,0L1.53,26.83a2.59,2.59,0,0,1,0-3.66L23.17,1.53A2.57,2.57,0,0,1,25,.77M25,0a3.43,3.43,0,0,0-2.41,1L1,22.59a3.41,3.41,0,0,0,0,4.82L22.59,49.05a3.4,3.4,0,0,0,4.82,0L49.05,27.41a3.41,3.41,0,0,0,0-4.82L27.41,1A3.43,3.43,0,0,0,25,0Z"/>
+                    <path class="mainReportColorOutLine"
+                          d="M36,33.61H14a.19.19,0,0,1,0-.07,8.07,8.07,0,0,1,1.71-5.17,8.72,8.72,0,0,1,3.94-2.68,15,15,0,0,1,5.15-.85,15.81,15.81,0,0,1,5.29.77A9.06,9.06,0,0,1,33.88,28a7.38,7.38,0,0,1,1.93,3.93C35.9,32.44,35.94,33,36,33.61ZM34.21,32c0-.06,0-.12,0-.17a5.51,5.51,0,0,0-2-3.25,9.52,9.52,0,0,0-4.77-1.88,16.8,16.8,0,0,0-4.31-.08,11.62,11.62,0,0,0-3.92,1,6.06,6.06,0,0,0-3.07,3,5.21,5.21,0,0,0-.4,1.36Z"/>
+                    <path class="mainReportColorOutLine"
+                          d="M31.57,16.05A6.59,6.59,0,1,1,25,9.46,6.58,6.58,0,0,1,31.57,16.05ZM25,21A4.94,4.94,0,1,0,20,16,5,5,0,0,0,25,21Z"/>
+                </svg>
+            </li>
+        </ul>
+    </div>
+    <div class="clearBoth"></div>
+    <table class="tableWidth">
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Date Requested
+            </td>
+            <td class="tdSubSpacing">
+                10 Nov 2020
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Date Issued:
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.date_issued | date("d M Y") }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Data Valid As At
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.date_issued | date("d M Y") }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Telephone No
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.tel_no }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Contact Email
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ report_details.email }}
+            </td>
+        </tr>
+    </table>
+    <!--    Start header-->
+    <div class="clearBoth"></div>
+    <br>
+    <div class="row spacerTop formHeaders">
+        <span class="generalHeader1 spacerTop"> EDUCATION HISTORY</span>
+        <span class="generalHeader2"> <hr class="lineThinkness"></span>
+        <span class="detailHeader3">
+              <svg class="formHeadersIcon mainReportColorBackGround" id="Layer_1" data-name="Layer 1"
+                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <rect x="6.33" y="6.33" width="37.34" height="37.34" rx="3.39"
+                          transform="translate(-10.36 25) rotate(-45)"/>
+                    <path class="mainReportColorOutLine"
+                          d="M12.47,20.29a2,2,0,0,1,1.09-1c3.61-1.71,7.2-3.44,10.8-5.15a4.33,4.33,0,0,1,3.92,0l10.53,5.15a2.92,2.92,0,0,1,.71.47,1.09,1.09,0,0,1-.09,1.71,3.38,3.38,0,0,1-.64.38c-1.09.55-2.18,1.09-3.28,1.62a.35.35,0,0,0-.24.38q0,3,0,6a1,1,0,0,1-.24.68,11.13,11.13,0,0,1-6.34,3.73,12.15,12.15,0,0,1-7.15-.63,10.85,10.85,0,0,1-4.32-3.16.93.93,0,0,1-.2-.55q0-3.08,0-6.13a.34.34,0,0,0-.23-.37c-.47-.21-.93-.45-1.44-.7V27c0,.12,0,.22.14.3a1.53,1.53,0,0,1,0,2.72l-.08.07,1.4,4.45h-4l1.4-4.46L14,29.91a1.51,1.51,0,0,1,.06-2.6.37.37,0,0,0,.21-.37q0-2.25,0-4.5a.33.33,0,0,0-.25-.37l-.41-.2a2,2,0,0,1-1.17-1.1Zm26.42.32V20.5c-.17-.1-.33-.22-.51-.31L27.79,15a3.28,3.28,0,0,0-3,0c-1.51.71-3,1.44-4.53,2.17l-6.35,3c-.17.08-.32.2-.55.33a4.78,4.78,0,0,0,.47.3,8.76,8.76,0,0,0,.82.39,1.29,1.29,0,0,0,.51.1c.52-.05,1-.12,1.57-.19l3.84-.45,3.88-.46c.55-.06,1.1-.13,1.65-.18a.47.47,0,0,1,.52.42.48.48,0,0,1-.41.54l-.29.05-3.87.45-4,.46-1.51.19.31.15,7.85,3.76a3.34,3.34,0,0,0,3,0L35,22.6l3.43-1.68C38.58,20.83,38.73,20.71,38.89,20.61ZM18.07,24v.34c0,1.69,0,3.38,0,5.06a1.18,1.18,0,0,0,.4,1A10.68,10.68,0,0,0,29,33.18a9.75,9.75,0,0,0,5.16-3.11.72.72,0,0,0,.15-.43c0-1.77,0-3.55,0-5.32V24l-.32.14L28.2,27a4.22,4.22,0,0,1-3.82,0c-2-.94-4-1.9-6-2.86Z"/>
+                </svg>
+    </span>
+    </div>
+    <div class="clearBoth"></div>
+    <br>
+    <!--    end header-->
+</div>
+<!--Form header start-->
+<div class="clearBoth"></div>
+<div class="spacer1"></div>
+<div class="contentBody">
+    <div class="row spacerTop formHeaders">
+        <ul class="noBulletsInlines">
+            <li class="generalHeader1">
+                EDUCATION HISTORY
+            </li>
+            <li class="generalHeader2">
+                <hr class="lineThinkness">
+            </li>
+            <li class="generalHeader3">
+                <svg class="formHeadersIcon mainReportColorBackGround" id="Layer_1" data-name="Layer 1"
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <rect x="6.33" y="6.33" width="37.34" height="37.34" rx="3.39"
+                          transform="translate(-10.36 25) rotate(-45)"/>
+                    <path class="mainReportColorOutLine"
+                          d="M12.47,20.29a2,2,0,0,1,1.09-1c3.61-1.71,7.2-3.44,10.8-5.15a4.33,4.33,0,0,1,3.92,0l10.53,5.15a2.92,2.92,0,0,1,.71.47,1.09,1.09,0,0,1-.09,1.71,3.38,3.38,0,0,1-.64.38c-1.09.55-2.18,1.09-3.28,1.62a.35.35,0,0,0-.24.38q0,3,0,6a1,1,0,0,1-.24.68,11.13,11.13,0,0,1-6.34,3.73,12.15,12.15,0,0,1-7.15-.63,10.85,10.85,0,0,1-4.32-3.16.93.93,0,0,1-.2-.55q0-3.08,0-6.13a.34.34,0,0,0-.23-.37c-.47-.21-.93-.45-1.44-.7V27c0,.12,0,.22.14.3a1.53,1.53,0,0,1,0,2.72l-.08.07,1.4,4.45h-4l1.4-4.46L14,29.91a1.51,1.51,0,0,1,.06-2.6.37.37,0,0,0,.21-.37q0-2.25,0-4.5a.33.33,0,0,0-.25-.37l-.41-.2a2,2,0,0,1-1.17-1.1Zm26.42.32V20.5c-.17-.1-.33-.22-.51-.31L27.79,15a3.28,3.28,0,0,0-3,0c-1.51.71-3,1.44-4.53,2.17l-6.35,3c-.17.08-.32.2-.55.33a4.78,4.78,0,0,0,.47.3,8.76,8.76,0,0,0,.82.39,1.29,1.29,0,0,0,.51.1c.52-.05,1-.12,1.57-.19l3.84-.45,3.88-.46c.55-.06,1.1-.13,1.65-.18a.47.47,0,0,1,.52.42.48.48,0,0,1-.41.54l-.29.05-3.87.45-4,.46-1.51.19.31.15,7.85,3.76a3.34,3.34,0,0,0,3,0L35,22.6l3.43-1.68C38.58,20.83,38.73,20.71,38.89,20.61ZM18.07,24v.34c0,1.69,0,3.38,0,5.06a1.18,1.18,0,0,0,.4,1A10.68,10.68,0,0,0,29,33.18a9.75,9.75,0,0,0,5.16-3.11.72.72,0,0,0,.15-.43c0-1.77,0-3.55,0-5.32V24l-.32.14L28.2,27a4.22,4.22,0,0,1-3.82,0c-2-.94-4-1.9-6-2.86Z"/>
+                </svg>
+            </li>
+        </ul>
+    </div>
+    <div class="clearBoth"></div>
+    <!--Form header end-->
+    <table class="tableWidth">
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Academic Institution
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ qualification.institute }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Year Qualified
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ qualification.end_date }}
+            </td>
+        </tr>
+    </table>
+</div>
+<!--Form header start-->
+<div class="clearBoth"></div>
+<div class="spacer1"></div>
+<div class="contentBody">
+    <div class="formHeaders spacerTop">
+        <ul class="noBulletsInlines">
+            <li class="formHeadersLi1">
+                PREVIOUS WORK EXPERIENCE
+            </li>
+            <li class="formHeadersLi2">
+                <hr class="lineThinkness">
+            </li>
+            <li class="formHeadersLi3">
+                <svg class="formHeadersIcon mainReportColorBackGround" id="Layer_1" data-name="Layer 1"
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <rect x="6.33" y="6.33" width="37.34" height="37.34" rx="3.39"
+                          transform="translate(-10.36 25) rotate(-45)"/>
+                    <path class="mainReportColorOutLine"
+                          d="M13.49,17.07a3.45,3.45,0,0,1,.24-.47,1.24,1.24,0,0,1,1.08-.49h4.94c0-.45,0-.89,0-1.32a2.73,2.73,0,0,1,.07-.7,1.93,1.93,0,0,1,2-1.51c2.29,0,4.57,0,6.86,0a1.93,1.93,0,0,1,2,1.5,3.6,3.6,0,0,1,.07.66c0,.44,0,.88,0,1.36H31c1.56,0,3.12,0,4.68,0A1.18,1.18,0,0,1,37,17a2,2,0,0,1,0,.34v8.56a1.23,1.23,0,0,1-.66,1.15.3.3,0,0,0-.12.25v5.19a1.16,1.16,0,0,1-.87,1.18,2.07,2.07,0,0,1-.5,0H15.64a1.2,1.2,0,0,1-1.33-.94,1.58,1.58,0,0,1,0-.38c0-1.7,0-3.4,0-5.1a.28.28,0,0,0-.18-.3,1.25,1.25,0,0,1-.61-.79ZM26.81,27.64l.28,0L31.24,27l4.5-.61c.38-.06.48-.18.48-.57v-8.4c0-.41-.13-.54-.55-.54H14.83c-.42,0-.55.13-.55.54v8.4c0,.39.1.51.48.57l3.06.42,4.9.67,1,.13c0-.24,0-.43,0-.62a1.14,1.14,0,0,1,1-1.1,8.17,8.17,0,0,1,1,0,1.14,1.14,0,0,1,1.08,1.13Zm-11.75-.37v5.12c0,.45.12.57.57.57H34.86c.45,0,.57-.12.57-.57V27.27l-8.62,1.19c0,.36,0,.7,0,1a1.14,1.14,0,0,1-1.12,1.12h-.75a1.18,1.18,0,0,1-1.26-1.26v-.9ZM29.94,16.1c0-.54,0-1.05,0-1.56a1.14,1.14,0,0,0-1.15-1.15H21.71a1.1,1.1,0,0,0-1.12.93,17.55,17.55,0,0,0,0,1.78h.75c0-.49,0-1,0-1.44s.13-.49.48-.49h6.88c.34,0,.47.14.48.47v1.22c0,.08,0,.16,0,.24ZM28.37,15H22.14V16.1h6.23Zm-3.9,13.29c0,.37,0,.75,0,1.12a.4.4,0,0,0,.43.45c.24,0,.48,0,.71,0a.38.38,0,0,0,.41-.4c0-.77,0-1.55,0-2.32,0-.26-.16-.39-.43-.4s-.43,0-.64,0-.48.14-.48.49S24.46,27.91,24.47,28.26Z"/>
+                </svg>
+            </li>
+        </ul>
+    </div>
+    <div class="clearBoth"></div>
+    <!--Form header end-->
+    <table class="tableWidth">
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Employer Name
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ employment.employer }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Job Title
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ employment.job_title }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing ">
+                Duration
+            </td>
+            <td class="tdSubSpacing">
+                <b>Current</b> {% endif %}
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="page"></div>
+<div class="spacerTop"></div>
+<div class="mainHeaders">
+    DIGITAL MEDIA SUMMARY
+</div>
+<div class="spacer1"></div>
+<div class="contentBody">
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="tableWidth">
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span>Creativity</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="2"
+                                 aria-valuemin="0" aria-valuemax="5"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span>Communication Skills</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span>Business Writing & Writing ability</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span>Business Writing & Writing ability</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span> Professional image</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-6">
+            <table class="tableWidth">
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span> Professional engagement</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span> Network Reach</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span> Network Engagement</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="darkerGray tdMainSpacingBehavour ">
+                        <span> Teamwork Collaboration</span>
+                        <span class="floatRight">2.27</span>
+                        <div class="clearBoth behaviouralPadding"></div>
+                        <div class="progress progressBarHeight">
+                            <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="75"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        *Scores range from 0-5 with 0 being the lowest and 5 being the highest.
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!--Form header start-->
+<div class="clearBoth"></div>
+<div class="spacer1"></div>
+<div class="formHeaders spacerTop">
+    <ul class="noBulletsInlines">
+        <li class="formHeadersLi1">
+            PLATFORM SUMMARY
+        </li>
+        <li class="formHeadersLi2">
+            <hr class="lineThinkness">
+        </li>
+        <li class="formHeadersLi3">
+            <svg class="formHeadersIcon mainReportColorBackGround" id="Layer_1" data-name="Layer 1"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                >
+                <rect x="6.33" y="6.33" width="37.34" height="37.34" rx="3.39"
+                      transform="translate(-10.36 25) rotate(-45)"/>
+                <path class="mainReportColorOutLine"
+                      d="M32.83,13a4.41,4.41,0,0,1,.7.23A2.42,2.42,0,0,1,35,15.4a2.35,2.35,0,0,1,0,.26Q35,25,35,34.34a2.53,2.53,0,0,1-1.28,2.34,2.46,2.46,0,0,1-1.3.32H17.56A2.48,2.48,0,0,1,15,34.92a3.28,3.28,0,0,1,0-.63V15.73A2.51,2.51,0,0,1,17.13,13l0,0ZM16,25v9.35a2.68,2.68,0,0,0,0,.4A1.52,1.52,0,0,0,17.64,36h14.7A1.53,1.53,0,0,0,34,34.33V15.67A1.53,1.53,0,0,0,32.33,14H17.66A1.52,1.52,0,0,0,16,15.67Z"/>
+                <path class="mainReportColorOutLine"
+                      d="M23,21A5,5,0,1,1,18,26,5,5,0,0,1,23,21Zm-2.43,8.16a4,4,0,0,0,4.58.23,4,4,0,0,0,1.69-4.54,4,4,0,0,0-3.33-2.78v.25c0,1.15,0,2.3,0,3.45a1,1,0,0,1-.33.78C22.3,27.4,21.44,28.27,20.56,29.15Zm1.94-7.09a3.95,3.95,0,0,0-2.65,6.36l.07-.05c.83-.83,1.66-1.65,2.48-2.49a.41.41,0,0,0,.1-.29V22.06Z"/>
+                <path class="mainReportColorOutLine"
+                      d="M25,33H31.4c.37,0,.57.16.59.45a.49.49,0,0,1-.44.54H18.63c-.4,0-.62-.17-.63-.49a.49.49,0,0,1,.44-.5H25Z"/>
+                <path class="mainReportColorOutLine"
+                      d="M30.5,22h-1a.51.51,0,0,1-.54-.5.51.51,0,0,1,.54-.5h1.92a.49.49,0,0,1,.53.5.5.5,0,0,1-.55.5Z"/>
+                <path class="mainReportColorOutLine"
+                      d="M30.5,25h-1a.51.51,0,0,1-.54-.5.5.5,0,0,1,.54-.49q1,0,1.92,0a.47.47,0,0,1,.53.49.5.5,0,0,1-.53.5h-1Z"/>
+                <path class="mainReportColorOutLine"
+                      d="M30.49,28h-.94a.5.5,0,0,1-.55-.51.49.49,0,0,1,.55-.48c.63,0,1.26,0,1.9,0a.47.47,0,0,1,.54.5.49.49,0,0,1-.56.49Z"/>
+                <path class="mainReportColorOutLine"
+                      d="M30.51,30c.32,0,.64,0,1,0a.47.47,0,0,1,.52.5.49.49,0,0,1-.54.49H29.53a.5.5,0,0,1-.53-.5.49.49,0,0,1,.52-.49C29.85,30,30.18,30,30.51,30Z"/>
+            </svg>
+        </li>
+    </ul>
+</div>
+<div class="clearBoth"></div>
+<div class="contentBody">
+    <!--Form header end-->
+    <div class="darkerGray">
+        * Platform conduct scores range from -1.67 - 5, with -1.67 being the lowest score and 5 being the highest.
+        This
+        reflects conduct on the individual platform.
+    </div>
+    <div class="spacer2"></div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="grid">
+                <section>
+                    <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="200" height="200"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <circle class="circle-chart__background" stroke="#1A524F" stroke-width="5"
+                                stroke-linecap="square"
+                                fill="none"
+                                cx="16.91549431" cy="16.91549431" r="15.91549431"/>
+                        <circle class="circle-chart__circle" stroke="#156D63" stroke-width="0" stroke-dasharray="30,100"
+                                stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431"/>
+                        <g class="circle-chart__info">
+                            <text class="circle-chart__percent" x="16.91549431" y="15.5" alignment-baseline="central"
+                                  text-anchor="middle" font-size="8">30%
+                            </text>
+                            <text class="circle-chart__subline" x="16.91549431" y="20.5" alignment-baseline="central"
+                                  text-anchor="middle" font-size="2">Yay 30% progress!
+                            </text>
+                        </g>
+                    </svg>
+                </section>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            TWITTER SCORE: -0.83
+            <ul class=" darkerGray">
+                <li>Links to social media accounts</li>
+                <li>Links to online reviews</li>
+                <li>Average connection levels</li>
+                <li>Negative & damaging content found</li>
+                <li>Average connection levels</li>
+                <li>Negative & damaging content found</li>
+            </ul>
+        </div>
+    </div>
+    <div class="page"></div>
+</div>
+<div class="spacerTop"></div>
+<div class="mainHeaders">
+    DETAILED PLATFORM
+</div>
+<div class="spacer1"></div>
+{% endif %}
+{% if report_types != 'basic' and report_types != 'standard' %}
+{% for summary in detailed_summary %}
+{#
+<span class="subHeadings">
+        {{ summary.report_summary.social_media | upper }}
+    </span>
+<span class="floatRight headerFont">
+        PLATFORM SCORE:&nbsp;{{ summary.report_summary.score }}
+
+    </span>
+<hr>
+{% if report_types == 'high_profile' or report_types == 'full' %}
+<table class="">
+    <tr>
+        <td class="subText darkerGray">
+            Number of Profile Hits |&nbsp;
+        </td>
+        <td class="subText">
+            &nbsp;&nbsp; {{ summary.report_summary.profile_hits }} &nbsp;
+        </td>
+        <td class="subText darkerGray">
+            Number of True Hits |&nbsp;
+        </td>
+        <td class="subText">
+            &nbsp;&nbsp; {{ summary.report_summary.true_hits }} &nbsp;
+        </td>
+    </tr>
+</table>
+<table class="">
+    <tr>
+        <td class="subText darkerGray confirmationOfIdentity">
+            Confirmation of Identity | &nbsp;
+        </td>
+        <td class="subText">
+            {{ summary.report_summary.confirmation_of_identity }}
+        </td>
+    </tr>
+</table>
+{% endif %}
+<div class="spacer2"></div>
+{% if report_types != 'standard'  and  report_types != 'basic' %}
+<table class="formHeaders">
+    <tr>
+        <td class="findingsTd1">
+            NOTEWORTHY FINDINGS
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+<div class="spacerTop"></div>
+<div class="mainHeaders">
+    RISK ASSESSMENT
+</div>
+<!--Form header start-->
+<div class="clearBoth"></div>
+<div class="spacer1"></div>
+<div class="formHeaders spacerTop">
+    <ul class="noBulletsInlines">
+        <li class="formHeadersLi1">
+            DIGITAL MEDIA SCORE
+        </li>
+        <li class="formHeadersLi2">
+            <hr class="lineThinkness">
+        </li>
+        <li class="formHeadersLi3">
+            Icon
+        </li>
+    </ul>
+</div>
+<div class="clearBoth"></div>
+<!--Form header end-->
+<canvas id="foo"></canvas>
+<div class="spacerTop"></div>
+<div class="mainHeaders">
+    DISCLAIMER
+</div>
+<script>
+    var opts = {
+        angle: -0.29, // The span of the gauge arc
+        lineWidth: 0.23, // The line thickness
+        radiusScale: 0.84, // Relative radius
+        pointer: {
+            length: 0.37, // // Relative to gauge radius
+            strokeWidth: 0.09, // The thickness
+            color: 'bluetooth' // Fill color
+        },
+        limitMax: false,     // If false, max value increases automatically if value > maxValue
+        limitMin: false,     // If true, the min value of the gauge will be fixed
+        // colorStart: '#6FADCF',   // Colors
+        // colorStop: '#8FC0DA',    // just experiment with them
+        strokeColor: '#E0E0E0',  // to see which ones work best for you
+        generateGradient: true,
+        highDpiSupport: true,     // High resolution support
+
+    };
+    var target = document.getElementById('foo'); // your canvas element
+    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+    gauge.maxValue = 100; // set max gauge value
+    gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+    gauge.animationSpeed = 1; // set animation speed (32 is default value)
+    gauge.set(2150); // set actual value
+    percentColors = [[0.0, "#a9d70b"], [0.50, "#f9c802"], [1.0, "#ff0000"]];
+
+    // var opts = {
+    //     angle: -0.29, // The span of the gauge arc
+    //     lineWidth: 0.31, // The line thickness
+    //     radiusScale: 1, // Relative radius
+    //     pointer: {
+    //         length: 0.4, // // Relative to gauge radius
+    //         strokeWidth: 0.108, // The thickness
+    //         color: '#000000' // Fill color
+    //     },
+    //     limitMax: false,     // If false, max value increases automatically if value > maxValue
+    //     limitMin: false,     // If true, the min value of the gauge will be fixed
+    //     colorStart: '#6FADCF',   // Colors
+    //     colorStop: '#8FC0DA',    // just experiment with them
+    //     strokeColor: '#E0E0E0',  // to see which ones work best for you
+    //     generateGradient: true,
+    //     highDpiSupport: true,     // High resolution support
+    //
+    //
+    //
+    // };
+    // percentColors = [[0.0, "#a9d70b" ], [0.50, "#f9c802"], [1.0, "#ff0000"]];
+    // var target = document.getElementById('foo'); // your canvas element
+    // var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+    // gauge.maxValue = 3000; // set max gauge value
+    // gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+    // gauge.animationSpeed = 1; // set animation speed (32 is default value)
+    // gauge.set(2150); // set actual value
+</script>

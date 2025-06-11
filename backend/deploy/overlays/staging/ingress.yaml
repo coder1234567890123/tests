@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/issuer: "letsencrypt"
+  name: farosian
+spec:
+  tls:
+  - hosts:
+    - farocity-staging.farosian.com
+    secretName: farocity-staging-tls
+  rules:
+  - host: farocity-staging.farosian.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
+      - pathType: Prefix
+        path: /api
+        backend:
+          service:
+            name: api
+            port:
+              number: 8080
+      - pathType: Prefix
+        path: /bundles
+        backend:
+          service:
+            name: api
+            port:
+              number: 8080
+      - pathType: Prefix
+        path: /_wdt
+        backend:
+          service:
+            name: api
+            port:
+              number: 8080
+

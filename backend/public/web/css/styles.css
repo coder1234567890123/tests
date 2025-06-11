@@ -1,0 +1,245 @@
+/*@font-face {*/
+/*    font-family: 'Bahnschrift';*/
+/*    src: url("../fonts/Bahnschrift.woff2") format('woff2');*/
+/*    src: url('../fonts/Bahnschrift.woff') format('woff');*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
+/*body {*/
+/*    background-color: #0000F0 !important;*/
+/*    color: red !important;*/
+/*    font-family: 'Bahnschrift';*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*    font-size: 2px;*/
+/*    margin: 0px 25px 0px 25px;*/
+/*}*/
+
+/*body{*/
+/*    color: pink;*/
+/*}*/
+
+.page {
+    page-break-before: always;
+}
+
+.page-auto {
+    page-break-before: auto;
+}
+
+
+.normal-border {
+    border: 1px solid lightgrey;
+}
+
+.pad-top {
+    style: "padding-top: 20px !important;"
+}
+
+
+
+/*Headers*/
+
+.lightGrey {
+    color: #BFBFBF;
+    font-size: 18px;
+}
+
+
+.tratesName {
+    padding: 5px 15px 0px 10px;
+    font-size: 18px;
+}
+
+.tratesScores {
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    padding: 5px 15px 0px 15px;
+
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.findingHeader {
+    text-decoration: underline;
+}
+
+.nobull {
+    list-style-type: none;
+    padding: 2px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    font-size: 18px;
+    width: 700px;
+}
+
+.findingsDivider {
+    width: 100%;
+    border-bottom: 1px solid #AAAAAA;
+    border-top: 1px solid #AAAAAA;
+    margin: 0px 0px 10px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 5px;
+    background-color: #BFBFBF;
+    clear: both;
+}
+
+.noteworthyFindings {
+    margin: 10px 0px 0px 0px;
+    font-size: 18px;
+}
+
+.noteworthyFindingsHr {
+    padding: 0px 0px 0px 0px !important;
+    margin: 5px 0px 5px 0px !important;
+    border: 1px solid #BFBFBF;
+}
+
+.noteworthyFindingsImage {
+    margin-left: 55px !important;
+}
+
+/*.proofImage {*/
+/*    height: 190px;*/
+/*    width: 320px;*/
+/*    border: 1px solid lightgrey;*/
+/*}*/
+
+.socialMediaIcon {
+    height: 80px;
+}
+
+.th {
+    font-size: 18px;
+}
+
+.searchIcon {
+    color: grey;
+}
+
+.riskComment {
+    font-size: 18px;
+}
+
+.font-size18 {
+    font-size: 18px;
+}
+
+/*************************************/
+/*      Risk Assessment Style        */
+/*************************************/
+.bx-pager .bx-pager-item {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 18%;
+    margin-left: 6px;
+    padding: 10px 0;
+    border-width: 0;
+    border-style: solid;
+}
+
+.bx-pager .bx-pager-item .bx-pager-link {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, .1),
+    1px -1px 0 rgba(0, 0, 0, .1),
+    -1px 1px 0 rgba(0, 0, 0, .1),
+    1px 1px 0 rgba(0, 0, 0, .1);
+    z-index: 1;
+}
+
+.bx-pager .bx-pager-item .bx-pager-link span {
+    display: block;
+}
+
+.bx-pager .bx-pager-item:before, .bx-pager .bx-pager-item:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.bx-pager .bx-pager-item:before {
+    top: 0;
+    left: 0;
+    border-top-width: 38px;
+    border-top-color: transparent;
+    border-bottom-width: 40px;
+    border-bottom-color: transparent;
+    border-left-width: 28px;
+    border-left-color: #fff;
+    border-right-width: 0;
+    border-right-color: transparent;
+    border-style: solid;
+    background: none;
+}
+
+.bx-pager .bx-pager-item:after {
+    top: -4px;
+    right: -28px;
+    border-top-width: 42px;
+    border-top-color: transparent;
+    border-bottom-width: 44px;
+    border-bottom-color: transparent;
+    border-left-width: 30px;
+    border-right-width: 0;
+    border-right-color: transparent;
+    border-style: solid;
+    background: none;
+    z-index: 1;
+}
+
+.danger, .danger:after {
+    background: #F08080;
+    border-color: #F08080;
+}
+
+.warning, .warning:after {
+    background: #FFA500;
+    border-color: #FFA500;
+}
+
+.moderate, .moderate:after {
+    background: #CCCC00;
+    border-color: #CCCC00;
+}
+
+.good, .good:after {
+    background: #3CB371;
+    border-color: #3CB371;
+}
+
+.success, .success:after {
+    background: #008000;
+    border-color: #008000;
+}
+
+.score {
+    position: absolute;
+    top: -80px;
+    left: 30%;
+    padding: 4px;
+    min-width: 60px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 2px 1px 4px 2px #DDD;
+}
+
+.score span {
+    display: block;
+    color: #fff;
+    padding: 18px 10px;
+    background: #D6D6D6;
+    border-radius: 50%;
+}
+
+.vcenter {
+
+}

@@ -1,0 +1,96 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url({{ config['coverPageUrl'] }});
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .pad {
+            padding-top: 80px !important;
+        }
+
+        .noBg {
+            background-color: transparent;
+            border: none;
+            border-radius: 0px;
+        }
+
+        .pageBottom {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .coverTitle {
+
+            color: black;
+            -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: white;
+        }
+
+        .coverLogoBox {
+            height: 350px;
+            width: 600px;
+            margin: 0px 0px 10px 0px;
+        }
+
+        .coverLogo {
+            height: 60% !important;
+            float: right !important;
+            margin: 10px 0px 10px 0px;
+        }
+
+        .poweredByLogo {
+            height: 60px !important;
+            float: left !important;
+            margin: 0px 0px 10px 0px;
+        }
+
+        .poweredBy {
+            color: white;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="container pad">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-4">
+                <div class="coverLogoBox">
+                    <div class="noBg">
+                        <img class="coverLogo" src="{{ config['logo'] }}">
+                        <div class="caption">
+                            <div class="row">
+                                <div class="col-xs-9 col-xs-offset-2" style="color: white;">
+                                    <h2 class="text-right coverTitle">{{ config['title'] | upper }}</h2>
+                                    <h2 class="text-right coverTitle">{{ ("now"|date("d M Y"))| upper }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if (config['branding'] == 'default') or (config['branding'] == 'co_branded') %}
+        <div class="container pageBottom">
+            <div class="row">
+                <div class="col-xs-3 poweredBy">
+                    <div class="poweredBy"><h5 class="">{{ 'powered by' | upper }}</h5></div>
+                    <div class="noBg">
+                        <img class="poweredByLogo" src="{{ config['farosianLogo'] }}">
+                    </div>
+                </div>
+                <div class="col-xs-9"></div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

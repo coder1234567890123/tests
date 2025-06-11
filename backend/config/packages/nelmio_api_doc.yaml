@@ -1,0 +1,14 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: Farosian API
+      version: 1.0.0
+  areas:
+    default:
+      path_patterns:
+        - ^/api
+      with_annotation: true
+    internal:
+      path_patterns:
+        - ^/api
+      with_annotation: true

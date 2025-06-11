@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api-deployment
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: api
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: DATABASE_URL
+        - name: JWT_PASSPHRASE
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: JWT_PASSPHRASE
+        - name: BLOB_URL
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: BLOB_URL
+        - name: MAILER_URL
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: MAILER_URL
+        - name: BLOB_ENDPOINTS_PROTOCOL
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: BLOB_ENDPOINTS_PROTOCOL
+        - name: SERVICE_BUS_URL
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: SERVICE_BUS_URL
+        - name: SENDGRID_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api
+              key: SENDGRID_API_KEY
+        image: acrfarosiansharedneu.azurecr.io/api
+        imagePullPolicy: Always
+        name: api
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+      - name: acr-pull

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400&display=swap" rel="stylesheet">
+{#    <link rel="stylesheet" href="{{ base_url }}/web/css/bootstrap.min.css">#}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0px 70px 10px 70px !important;
+        padding: 0px 0px 0px 0px !important;
+        font-size: 16px;
+        height: 200px !important;
+
+    }
+
+    .footerImage {
+        height: 120px;
+        float: left;
+    }
+
+    .footerImageCo {
+        height: 120px;
+        float: right;
+    }
+
+    .brandingImage {
+
+    }
+
+    .brandingUrl {
+        font-family: 'Roboto Condensed', sans-serif;
+        padding: 70px 0px 0px 0px !important;
+        float: left;
+        text-align: center;
+        text-decoration: none !important;
+        color: black;
+    }
+
+    .brandingUrl a {
+        font-family: 'Roboto Condensed', sans-serif;
+        text-decoration: none !important;
+        color: black !important;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block body %}
+
+{% if branding.branding_type == 'co_branded' %}
+<div class="row">
+    <div class="col-xs-5">
+        <div class="brandingImage ">
+            {% set footer_logo = branding.footer_logo %}
+            <img src="{{ footer_logo }}" class="footerImage">
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div class="brandingUrl">
+            <a href="{{ branding.footer_link }}">{{ branding.footer_link }}</a>
+        </div>
+    </div>
+    <div class="col-xs-5">
+
+        <div class="footerImageCo">
+            {% set company_footer_logo = branding.company_footer_logo %}
+            <img src="{{ company_footer_logo }}" class="footerImage">
+        </div>
+
+        {% else %}
+        <div class="brandingImage ">
+            {% set footer_logo = branding.footer_logo %}
+            <img src="{{ footer_logo }}" class="footerImage">
+        </div>
+
+
+        <div class="brandingUrl" style="float: right;">
+            <a href="{{ branding.footer_link }}">{{ branding.footer_link }}</a>
+        </div>
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock body %}

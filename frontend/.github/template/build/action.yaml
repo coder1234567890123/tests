@@ -1,0 +1,36 @@
+name: Build
+
+# Were we can define the inputs that our action will accept
+inputs:
+  azure_client_id:
+    required: true
+  azure_tenant_id:
+    required: true
+  azure_subscription_id:
+    required: true
+  azure_container_registry: 
+    required: true
+  container_name:
+    required: true
+  resource_group:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # Checks out the repository this file is in
+    - uses: actions/checkout@v3
+
+    # Logs in with your Azure credentials
+    - name: Azure login
+      uses: azure/login@v1.4.6
+      with:
+        client-id: ${{ inputs.azure_client_id }}
+        tenant-id: ${{ inputs.azure_tenant_id }}
+        subscription-id: ${{ inputs.azure_subscription_id }}
+
+      # Builds and pushes an image up to your Azure Container Registry
+    - name: Build and push image to ACR
+      shell: bash
+      run: |
+        az acr build --image ${{ inputs.azure_container_registry }}/${{ inputs.container_name }}:${{ github.sha }} --registry ${{ inputs.azure_container_registry }} -g ${{ inputs.resource_group }} .

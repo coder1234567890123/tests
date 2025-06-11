@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: api
+        env:
+        - name: JWT_TTL
+          value: "28800"
+        - name: CORS_ALLOW_ORIGIN
+          value: "^https://farocity-develop.farosian.com$"
+        - name: RESET_URL
+          value: "https://farocity-develop.farosian.com/reset-password"
+        - name: SERVICE_BUS_QUEUE
+          value: "dev"
+        - name: SERVICE_BUS_ACTIVE
+          value: "true"
+        - name: API_ERROR_DEV
+          value: "true"
+        - name: DEV_MAIL
+          value: "true"
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 250m
+          limits:
+            memory: 1Gi
+            cpu: 250m

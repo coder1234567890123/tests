@@ -1,0 +1,852 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    {#    <link rel="stylesheet" href="{{ config.assetsDir }}/web/css/bootstrap.min.css">#}
+    <link rel="stylesheet" href="{{ config.assetsDir }}/web/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ config.assetsDir }}/web/css/styles.css">
+
+    <style>
+        {#.border {#}
+        {#    border-left: 10px solid grey;#}
+        {#    color: {{ config['fontColor'] }} !important;#}
+        {#}#}
+
+        {#.header {#}
+        {#    color: {{ config['fontColor'] }} !important;#}
+        {#    font-weight: 700;#}
+        {#}#}
+
+        body {
+            font-family: 'Bahnschrift';
+            font-weight: normal;
+            font-style: normal;
+            margin: 0px 120px 0px 120px;
+            font-size: 16px;
+        }
+
+        h1 {
+
+            font-family: 'Bahnschrift';
+            font-weight: 300;
+
+        }
+
+        .mainHeaders {
+            font-size: 40px;
+            /*text-decoration: underline;*/
+            /*font-weight: 500;*/
+            /*font-family: Arial, Helvetica, sans-serif;*/
+            font-weight: 200;
+        }
+
+        .subHeadings {
+            font-size: 27px;
+            font-weight: 200;
+        }
+
+        .formHeaders {
+            font-size: 20px;
+            font-weight: 200;
+            margin: 0px 0px 10px 0px;
+        }
+
+        .spacerTop {
+            clear: both;
+            height: 40px;
+        }
+
+        .spacer1 {
+            clear: both;
+            height: 60px;
+        }
+
+        .tdPadding {
+            padding: 5px 15px 0px 0px;
+            font-size: 18px;
+        }
+
+        .tdMainSpacing {
+            /*padding: 5px 150px 0px 0px;*/
+            width: 290px !important;
+        }
+
+        .tdSubSpacing {
+            /*padding: 5px 150px 0px 0px;*/
+            width: 500px !important;
+        }
+
+        .tdFindingSpacing{
+            width: 570px;
+            color: dimgrey;
+            /*margin: 0px 0px 40px 0px;*/
+            /*padding: 0px 0px 40px 0px !important;*/
+
+        }
+
+        .tableWidth {
+
+            width: 90%;
+        }
+
+        .darkerGray {
+            color: dimgrey;
+        }
+
+        .proofImage {
+            height: 200px;
+            width: 335px;
+            border: 1px solid lightgrey;
+            margin: 0px 0px 30px 0px;
+        }
+
+    </style>
+
+{% endblock stylesheets %}
+
+{% block body %}
+
+    {# start#}
+    <div class="spacerTop"></div>
+    <div class="mainHeaders">CANDIDATE SUMMARY</div>
+    <div class="subHeadings">
+        {{ subject.firstName |upper  ~' ' ~ subject.lastName |upper }}
+    </div>
+    <hr>
+    <div class="spacer1"></div>
+    <div class="formHeaders">
+        EDUCATION HISTORY
+    </div>
+    {% for history in subject.qualifications %}
+        <table class="tableWidth">
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Academic Institution
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ history.institute }}
+                </td>
+            </tr>
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Year Qualified
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ history.endDate | date("Y") }}
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+    <div class="spacer1"></div>
+    <div class="formHeaders">
+        PREVIOUS WORK EXPERIENCE
+    </div>
+    {% for work in employment %}
+        <table class="tableWidth">
+            <tr>
+                <td class="darkerGray tdMainSpacing ">
+                    Employer Name
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ work.employer }}
+                </td>
+            </tr>
+            <tr>
+                <td class="darkerGray tdMainSpacing">
+                    Job Title
+                </td>
+                <td class="tdSubSpacing">
+                    :&nbsp; {{ work.job_title }}
+                </td>
+            </tr>
+            {% if work.current == false %}
+                <tr>
+                    <td class="darkerGray tdMainSpacing">
+                        Employment Duration
+                    </td>
+                    <td class="tdSubSpacing">
+                        :&nbsp; {{ work.start_date }} - {{ work.end_date }}
+                    </td>
+                </tr>
+            {% else %}
+
+                <tr>
+                    <td class="darkerGray tdMainSpacing ">
+                        Employment Duration
+                    </td>
+                    <td class="tdSubSpacing">
+                        :&nbsp; {{ work.start_date }} - Current
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+        <br>
+        <br>
+    {% endfor %}
+
+    {#                    end#}
+    <div class="spacer1"></div>
+
+    <div class="page"></div>
+    {#   Report Details start#}
+
+    <div class="formHeaders">
+        REPORT DETAILS
+    </div>
+
+    <table class="tableWidth">
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Date Requested
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ reportDetails.date_requested }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Date Issued
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ reportDetails.date_issued }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Data Valid As At
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ reportDetails.date_valid_at }}
+            </td>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Telephone No
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ reportDetails.tel_no }}
+            </td>
+        </tr>
+        <tr>
+            <td class="darkerGray tdMainSpacing">
+                Contact Email
+            </td>
+            <td class="tdSubSpacing">
+                :&nbsp; {{ reportDetails.email }}
+            </td>
+        </tr>
+        </tr>
+    </table>
+
+    {#    Report Details  end #}
+    <div class="spacer1"></div>
+
+    {#    Behavioural summary start#}
+
+    {% if report_type != 'basic' %}
+        {% if overallBehaviorScoresCheck == true %}
+
+            <div class="formHeaders">
+                BEHAVIOURAL SUMMARY
+            </div>
+
+            {% if override_scores == true %}
+
+                <table>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Creativity
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.creativity }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Communication Skills
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.communication_skills }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Business Writing & Writing ability
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.business_writing_ability }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Professional image
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.professional_image }}
+                        </td>
+                    </tr>
+                </table>
+
+
+
+                <table class="tableWidth">
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Professional engagement
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.professional_engagement }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Network Reach
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.network_reach }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Network Engagement
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.network_engagement }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Teamwork Collaboration
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ override_behavior_scores.teamwork_collaboration }}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            {% else %}
+
+                <table class="tableWidth">
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Creativity
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp;  {{ overallBehaviorScores.creativity }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Communication Skills
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ overallBehaviorScores.communication_skills }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Business Writing & Writing ability:
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp;  {{ overallBehaviorScores.business_writing_ability }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Professional image
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ overallBehaviorScores.professional_image }}
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tableWidth">
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Professional engagement
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp;  {{ overallBehaviorScores.professional_engagement }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Network Reach
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp;  {{ overallBehaviorScores.network_reach }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Network Engagement
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ overallBehaviorScores.network_engagement }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="darkerGray tdMainSpacing">
+                            Teamwork Collaboration
+                        </td>
+                        <td class="tdSubSpacing">
+                            :&nbsp; {{ overallBehaviorScores.teamwork_collaboration }}
+                        </td>
+                    </tr>
+                </table>
+
+
+            {% endif %}
+
+        {% endif %}
+
+        <div class="spacer1"></div>
+            <div class="formHeaders">
+            PLATFORM SUMMARY</u>
+            </div>
+        <p>
+            <i>
+                * Platform conduct scores range from -1.67 - 5, with -1.67 being the lowest score and 5
+                being
+                the
+                highest.
+                This reflects conduct on the
+                individual platform.
+            </i>
+        </p>
+        {#    Behavioural summary end#}
+
+{#        <div class="page"></div>#}
+
+        <div class="spacerTop"></div>
+        {#    Comments start#}
+
+        {% for social in comment %}
+
+            {% if social.count >=1 %}
+
+                <div class="findingsDivider"></div>
+
+                        {% for key,icon in socialMediaIcon %}
+                            <div class="center-block">
+                                {% if key == social.name %}
+                                    <img class="socialMediaIcon" src="{{ icon }}">
+
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                            <p class="lightGrey">FINDINGS</p>
+                            <p>
+                            <ul class="nobull">
+                                {% for comment in social.comments %}
+
+                                    <li>{{ comment.comment }}</li>
+
+                                {% endfor %}
+                            </ul>
+
+                            <p class="lightGrey ">SCORE </p>
+                            {% if override_scores == true %}
+                                {% for key,score in report_scores_updated %}
+
+                                    {% if key == social.name %}
+                                        <p class="text-center font-size18">{{ score.weighted_platform_score }}</p>
+
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% for key,score in platform_scores %}
+
+                                    {% if key == social.name %}
+                                        <p class="text-center font-size18">{{ score.weighted_platform_score }}</p>
+
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+{#        <div class="findingsDivider"></div>#}
+        {#    Comments start#}
+
+    {% endif %}
+
+
+
+
+
+    <div class="page"></div>
+    <div class="container">
+    {#    Note Worthy finding start#}
+    {% if report_type != 'basic' %}
+        {% if report_type != 'standard' %}
+            {% for proofCheck in proof %}
+                {% if  proofCheck.check_proof == true %}
+
+                    {#    Platform build start #}
+                    {% for key,section in report['questions'] %}
+                        {% for platName,platform in section %}
+
+                            {% if  proofCheck.name  ==  platName %}
+
+                                {#    Platforms start#}
+                                <div class="page"></div>
+                                <div class="mainHeaders">
+                                    DETAILED PLATFORM FINDINGS
+                                </div>
+                                    <BR>
+                                    {% for key,logo in socialMediaIcon %}
+                                        {% if key == platName %}
+
+                                            {{ platName }}
+{#                                            <img class="socialMediaIcon" src="{{ logo }}">#}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                {% if report_type == 'high_profile' %}
+
+                                    {% for phrase in searchTerms %}
+                                        {% if phrase.name == platName %}
+                                            <table >
+                                                <tr>
+                                                    <td class="tratesName ">
+                                                        Number of Profile Hits:
+                                                    </td>
+                                                    <td class="tratesScores">
+                                                        {{ phrase.results.hit_counts }}
+                                                    </td>
+                                                    <td class="tratesName ">
+                                                        Number of True Hits:
+                                                    </td>
+                                                    <td class="lightGrey tratesScores">
+                                                        {{ phrase.results.validated }}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td class="tratesName ">
+                                                        Confirmation of Identity:
+                                                    </td>
+                                                    <td class="lightGrey tratesScores">
+                                                        {% for search in  phrase.search_term %}
+
+                                                            <i class="fa fa-search searchIcon"></i>   {{ search.phrase |replace({'_': ' '}) }}
+                                                        {% endfor %}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <br>
+
+                                <table class="tableWidth">
+                                    <tr>
+                                        <td class="tdFindingSpacing" >
+                                            {{ "Noteworthy Findings" | upper }}
+                                        </td>
+                                        <td>
+                                            {{ "Related Extract"| upper }}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <hr class="noteworthyFindingsHr">
+                                {% for question in platform %}
+                                    {% if question.answers[0].proofs %}
+                                        {% for proof in question.answers[0].proofs %}
+                                            <table class="tableWidth">
+                                                <tr>
+                                                    <td class="tdFindingSpacing" >
+{#                                                {% if question.platform == "web" %}#}
+
+{#                                                    <i class="fa fa-google fa-2x"></i>#}
+
+{#                                                {% else %}#}
+{#                                                    <i class="fa fa-{{ question.platform }} fa-2x"></i>#}
+{#                                                {% endif %}#}
+{#                                                <b>Comment:</b>#}
+
+                                                        {{ proof.comment |nl2br|raw }}
+                                                    </td>
+                                            {% if (question.answers | length > 0) and  (question.answers[0].proofs | length > 0) %}
+{#                                                <div class="col-xs-2 noteworthyFindings noteworthyFindingsImage">#}
+                                                <td>
+                                                    {% set url = 'https://qaams00safarosian.blob.core.windows.net/profile-images/' ~ subject.blobFolder ~ '/' ~ proof.proof_storage.image_file %}
+                                                    <img src="{{ url }}"
+                                                         class="proofImage">
+                                                </td>
+                                            {% else %}
+                                                <td class="tdFindingSpacing" ></td>
+                                            {% endif %}
+                                                </tr>
+                                            </table>
+                                            <hr class="noteworthyFindingsHr">
+
+                                        {% endfor %}
+                                    {% endif %}
+
+                                {% endfor %}
+                                <div class="page"></div>
+                                {#    Platforms end#}
+
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    {#    Platform build end #}
+
+                {% endif %}
+            {% endfor %}
+
+        {% endif %}
+    {% endif %}
+    {#    Note Worthy finding end#}
+    </div>
+    <div class="page"></div>
+
+
+
+{#    end of new PDF#}
+    <div class="spacer1"></div>
+
+    <hr>
+
+    {#    Behavioural summary start#}
+
+
+
+
+
+    <div class="page"></div>
+{#    <div class="container">#}
+{#    #}{#    Note Worthy finding start#}
+{#    {% if report_type != 'basic' %}#}
+{#        {% if report_type != 'standard' %}#}
+{#            {% for proofCheck in proof %}#}
+{#                {% if  proofCheck.check_proof == true %}#}
+
+{#                    #}{#    Platform build start #}
+{#                    {% for key,section in report['questions'] %}#}
+{#                        {% for platName,platform in section %}#}
+
+{#                            {% if  proofCheck.name  ==  platName %}#}
+
+{#                                #}{#    Platforms start#}
+{#                                <div class="page"></div>#}
+{#                                <p class="text-center formHeaders">#}
+{#                                    <u>DETAILED PLATFORM</u>#}
+{#                                    <BR>#}
+{#                                    <u>FINDINGS</u>#}
+{#                                    <BR>#}
+{#                                    {% for key,logo in socialMediaIcon %}#}
+{#                                        {% if key == platName %}#}
+{#                                            <img class="socialMediaIcon" src="{{ logo }}">#}
+{#                                        {% endif %}#}
+{#                                    {% endfor %}#}
+{#                                </p>#}
+{#                                {% if report_type == 'high_profile' %}#}
+
+{#                                    {% for phrase in searchTerms %}#}
+{#                                        {% if phrase.name == platName %}#}
+{#                                            <table>#}
+{#                                                <tr>#}
+{#                                                    <td class="tratesName ">#}
+{#                                                        Number of Profile Hits:#}
+{#                                                    </td>#}
+{#                                                    <td class="tratesScores">#}
+{#                                                        {{ phrase.results.hit_counts }}#}
+{#                                                    </td>#}
+{#                                                    <td class="tratesName ">#}
+{#                                                        Number of True Hits:#}
+{#                                                    </td>#}
+{#                                                    <td class="lightGrey tratesScores">#}
+{#                                                        {{ phrase.results.validated }}#}
+{#                                                    </td>#}
+{#                                                </tr>#}
+{#                                            </table>#}
+{#                                            <table>#}
+{#                                                <tr>#}
+{#                                                    <td class="tratesName ">#}
+{#                                                        Confirmation of Identity:#}
+{#                                                    </td>#}
+{#                                                    <td class="lightGrey tratesScores">#}
+{#                                                        {% for search in  phrase.search_term %}#}
+
+{#                                                            <i class="fa fa-search searchIcon"></i>   {{ search.phrase |replace({'_': ' '}) }}#}
+{#                                                        {% endfor %}#}
+{#                                                    </td>#}
+{#                                                </tr>#}
+{#                                            </table>#}
+{#                                        {% endif %}#}
+{#                                    {% endfor %}#}
+{#                                {% endif %}#}
+{#                                <br>#}
+{#                                <div class="row">#}
+{#                                    <div class="col-xs-8">#}
+{#                                        <div class="lightGrey"> {{ "Noteworthy Findings" | upper }}</div>#}
+{#                                    </div>#}
+{#                                    <div class="col-xs-4">#}
+{#                                        <div class="lightGrey">{{ "Related Extract"| upper }} </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <hr class="noteworthyFindingsHr">#}
+{#                                {% for question in platform %}#}
+{#                                    {% if question.answers[0].proofs %}#}
+{#                                        {% for proof in question.answers[0].proofs %}#}
+{#                                            <div class="row">#}
+{#                                            <div class="col-xs-7 noteworthyFindings">#}
+{#                                                <br>#}
+{#                                                {% if question.platform == "web" %}#}
+
+{#                                                    <i class="fa fa-google fa-2x"></i>#}
+
+{#                                                {% else %}#}
+{#                                                    <i class="fa fa-{{ question.platform }} fa-2x"></i>#}
+{#                                                {% endif %}#}
+{#                                                <b>Comment:</b><br> <br>{{ proof.comment |nl2br|raw }}#}
+{#                                            </div>#}
+{#                                            {% if (question.answers | length > 0) and  (question.answers[0].proofs | length > 0) %}#}
+{#                                                <div class="col-xs-2 noteworthyFindings noteworthyFindingsImage">#}
+{#                                                    {% set url = 'https://qaams00safarosian.blob.core.windows.net/profile-images/' ~ subject.blobFolder ~ '/' ~ proof.proof_storage.image_file %}#}
+{#                                                    <img src="{{ url }}"#}
+{#                                                         class="proofImage">#}
+{#                                                </div>#}
+{#                                            {% else %}#}
+{#                                                <div class="col-xs-2  noteworthyFindings"></div>#}
+{#                                                </div>#}
+{#                                            {% endif %}#}
+{#                                            </div>#}
+{#                                            <hr class="noteworthyFindingsHr">#}
+
+{#                                        {% endfor %}#}
+{#                                    {% endif %}#}
+
+{#                                {% endfor %}#}
+{#                                <div class="page"></div>#}
+{#                                #}{#    Platforms end#}
+
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+{#                    {% endfor %}#}
+{#                    #}{#    Platform build end #}
+
+{#                {% endif %}#}
+{#            {% endfor %}#}
+
+{#        {% endif %}#}
+{#    {% endif %}#}
+{#    #}{#    Note Worthy finding end#}
+{#    </div>#}
+    <div class="page"></div>
+    {#    Risk start#}
+    <div class="container">
+        <div style="height: 100px; position: relative; clear: both;"></div>
+        <div class="row risk-assessment">
+            <div class="bx-pager bx-default-pager">
+                <div class="bx-pager-item success">
+                    {% if override_scores == true %}
+
+                        {% if override_risks_score <= 25 %}
+                            <div class="score"><span> {{ override_risks_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if report.reportScore.risk_score <= 25 %}
+                            <div class="score"><span> {{ report.reportScore.risk_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        Very Low <br/>Risk <span>0% - 25%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item good ">
+                    {% if override_scores == true %}
+
+                        {% if ( override_risks_score |round  >= 26 ) and ( override_risks_score |round  <= 35 ) %}
+                            <div class="score"><span> {{ override_risks_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if ( report.reportScore.risk_score |round  >= 26 ) and ( report.reportScore.risk_score |round  <= 35 ) %}
+                            <div class="score"><span> {{ report.reportScore.risk_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        Low <br/>Risk <span>26% -  35%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item moderate">
+                    {% if override_scores == true %}
+
+                        {% if ( override_risks_score |round  >= 36  ) and ( override_risks_score |round  <= 55 ) %}
+                            <div class="score"><span> {{ override_risks_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if ( report.reportScore.risk_score |round  >= 36  ) and ( report.reportScore.risk_score |round  <= 55 ) %}
+                            <div class="score"><span> {{ report.reportScore.risk_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        Moderate <br/>Risk <span>36% - 55%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item warning ">
+                    {% if override_scores == true %}
+
+                        {% if ( override_risks_score |round  >= 56 ) and ( override_risks_score |round  <= 80 ) %}
+                            <div class="score"><span> {{ override_risks_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if ( report.reportScore.risk_score |round  >= 56 ) and ( report.reportScore.risk_score |round  <= 80 ) %}
+                            <div class="score"><span> {{ report.reportScore.risk_score |round }}% </span></div>
+                        {% endif %}
+
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        High <br/>Risk <span>56% -  80%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item danger">
+                    {% if override_scores == true %}
+
+                        {% if ( override_risks_score |round   >= 81 ) and ( override_risks_score |round  <= 100 ) %}
+                            <div class="score"><span> {{ report.reportScore.risk_score |round }} %</span></div>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if ( report.reportScore.risk_score |round   >= 81 ) and ( report.reportScore.risk_score |round  <= 100 ) %}
+                            <div class="score"><span> {{ report.reportScore.risk_score |round }} %</span></div>
+                        {% endif %}
+
+                    {% endif %}
+                    <div class="bx-pager-link ">
+                        Extreme <br/>Risk <span>81% - 100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#    Risk end#}
+    <div class="spacer1"></div>
+
+        {{ risk_comment }}
+
+    <div class="spacer1"></div>
+        {{ config['disclaimer'] | raw }}
+
+{% endblock body %}

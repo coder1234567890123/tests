@@ -1,0 +1,733 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+        .body {
+            font-size: 18px;
+            margin: 0px 25px 0px 25px;
+        }
+
+        .page {
+            page-break-before: always;
+        }
+
+        .page-auto {
+            page-break-before: auto;
+        }
+
+        .border {
+            border-left: 10px solid grey;
+            color: {{ config['fontColor'] }};
+        }
+
+        .header {
+            color: {{ config['fontColor'] }} !important;
+            font-weight: 700;
+        }
+
+        .normal-border {
+            border: 1px solid lightgrey;
+        }
+
+        .pad-top {
+            style: "padding-top: 20px !important;"
+        }
+
+        /*new sytles*/
+
+        .formHeaders {
+            font-size: 25px;
+            /*text-decoration: underline;*/
+            font-weight: 500;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .lightGrey {
+            color: #BFBFBF;
+            font-size: 18px;
+        }
+
+        .tdPadding {
+            padding: 5px 15px 0px 0px;
+            font-size: 18px;
+        }
+
+        .tratesName {
+            padding: 5px 15px 0px 10px;
+            font-size: 18px;
+        }
+
+        .tratesScores {
+            border-right: 2px solid black;
+            border-left: 2px solid black;
+            padding: 5px 15px 0px 15px;
+
+        }
+
+        .clearBoth {
+            clear: both;
+        }
+
+        .findingHeader {
+            text-decoration: underline;
+        }
+
+        .nobull {
+            list-style-type: none;
+            padding: 2px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+            font-size: 18px;
+            width: 700px;
+        }
+
+        .findingsDivider {
+            width: 100%;
+            border-bottom: 1px solid #AAAAAA;
+            border-top: 1px solid #AAAAAA;
+            margin: 0px 0px 10px 0px;
+            padding: 0px 0px 0px 0px;
+            height: 5px;
+            background-color: #BFBFBF;
+            clear: both;
+        }
+
+        .noteworthyFindings {
+            margin: 10px 0px 0px 0px;
+            font-size: 18px;
+        }
+
+        .noteworthyFindingsHr {
+            padding: 0px 0px 0px 0px !important;
+            margin: 5px 0px 5px 0px !important;
+            border: 1px solid #BFBFBF;
+        }
+
+        .noteworthyFindingsImage {
+            margin-left: 55px !important;
+        }
+
+        .proofImage {
+            height: 190px;
+            width: 320px;
+            border: 1px solid lightgrey;
+        }
+
+        .socialMediaIcon {
+            height: 80px;
+        }
+
+        .th {
+            font-size: 18px;
+        }
+
+        .searchIcon {
+            color: grey;
+        }
+
+        .riskComment {
+            font-size: 18px;
+        }
+
+        .font-size18 {
+            font-size: 18px;
+        }
+
+        /*************************************/
+        /*      Risk Assessment Style        */
+        /*************************************/
+        .bx-pager .bx-pager-item {
+            position: relative;
+            display: inline-block;
+            float: left;
+            width: 18%;
+            margin-left: 6px;
+            padding: 10px 0;
+            border-width: 0;
+            border-style: solid;
+        }
+
+        .bx-pager .bx-pager-item .bx-pager-link {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, .1),
+            1px -1px 0 rgba(0, 0, 0, .1),
+            -1px 1px 0 rgba(0, 0, 0, .1),
+            1px 1px 0 rgba(0, 0, 0, .1);
+            z-index: 1;
+        }
+
+        .bx-pager .bx-pager-item .bx-pager-link span {
+            display: block;
+        }
+
+        .bx-pager .bx-pager-item:before, .bx-pager .bx-pager-item:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .bx-pager .bx-pager-item:before {
+            top: 0;
+            left: 0;
+            border-top-width: 38px;
+            border-top-color: transparent;
+            border-bottom-width: 40px;
+            border-bottom-color: transparent;
+            border-left-width: 28px;
+            border-left-color: #fff;
+            border-right-width: 0;
+            border-right-color: transparent;
+            border-style: solid;
+            background: none;
+        }
+
+        .bx-pager .bx-pager-item:after {
+            top: -4px;
+            right: -28px;
+            border-top-width: 42px;
+            border-top-color: transparent;
+            border-bottom-width: 44px;
+            border-bottom-color: transparent;
+            border-left-width: 30px;
+            border-right-width: 0;
+            border-right-color: transparent;
+            border-style: solid;
+            background: none;
+            z-index: 1;
+        }
+
+        .danger, .danger:after {
+            background: #F08080;
+            border-color: #F08080;
+        }
+
+        .warning, .warning:after {
+            background: #FFA500;
+            border-color: #FFA500;
+        }
+
+        .moderate, .moderate:after {
+            background: #CCCC00;
+            border-color: #CCCC00;
+        }
+
+        .good, .good:after {
+            background: #3CB371;
+            border-color: #3CB371;
+        }
+
+        .success, .success:after {
+            background: #008000;
+            border-color: #008000;
+        }
+
+        .score {
+            position: absolute;
+            top: -80px;
+            left: 30%;
+            padding: 4px;
+            min-width: 60px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 2px 1px 4px 2px #DDD;
+        }
+
+        .score span {
+            display: block;
+            color: #fff;
+            padding: 18px 10px;
+            background: #D6D6D6;
+            border-radius: 50%;
+        }
+
+        .vcenter {
+
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block body %}
+    <div class="container">
+    {# start#}
+    <div class="container">
+        <p class="text-center formHeaders">
+            <u>SUBJECT SUMMARY</u>
+            <br>
+            <u>OF</u>
+            <br>
+            {{ subject.firstName ~ ' ' ~ subject.lastName }}
+        </p>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="lightGrey">EDUCATION HISTORY</div>
+                {% for history in subject.qualifications %}
+                    <table>
+                        <tr>
+                            <td class="tdPadding">
+                                Academic Institution:
+                            </td>
+                            <td class="lightGrey">
+                                {{ history.institute }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdPadding">
+                                Highest Qualification:
+                            </td>
+                            <td class="lightGrey">
+                                {{ 'N/A' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdPadding">
+                                Year Qualified:
+                            </td>
+                            <td class="lightGrey">
+                                {{ history.endDate | date("Y") }}
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                {% endfor %}
+                <div class="lightGrey">PREVIOUS WORK EXPERIENCE</div>
+                {% for work in subject.employments %}
+                    <table>
+                        <tr>
+                            <td class="tdPadding">
+                                Company Name:
+                            </td>
+                            <td class="lightGrey">
+                                {{ work.employer }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdPadding">
+                                Employment Duration:
+                            </td>
+                            <td class="lightGrey">
+                                {{ 'To Do' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdPadding">
+                                Job Title:
+                            </td>
+                            <td class="lightGrey">
+                                {{ work.jobTitle }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdPadding">
+                                Manager:
+                            </td>
+                            <td class="lightGrey">
+                                {{ 'To Do' }}
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {#                    end#}
+    <br>
+    <br>
+    {#        Report type: {{ report_type |replace({'_': ' '}) }}#}
+    <div class="page"></div>
+    {#   Report Details start#}
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-2">
+            <p class=" formHeaders">
+                <u>REPORT DETAILS</u>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-2">
+            <table width="100%">
+                <tr>
+                    <td class="th">
+                        Date Requested:
+                    </td>
+                    <td class="lightGrey">
+                        {{ reportDetails.date_requested }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">
+                        Date Issued:
+                    </td>
+                    <td class="lightGrey">
+                        {{ reportDetails.date_issued }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">
+                        Data Valid As At:
+                    </td>
+                    <td class="lightGrey">
+                        {{ reportDetails.date_valid_at }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-6">
+            <table width="100%">
+                <tr>
+                    <td class="th">
+                        Telephone No:
+                    </td>
+                    <td class="lightGrey">
+                        {{ reportDetails.tel_no }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">
+                        Contact Email:
+                    </td>
+                    <td class="lightGrey">
+                        {{ reportDetails.email }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {#    Report Details  end #}
+    <br>
+    <br>
+    {#    Behavioural summary start#}
+
+    {% if report_type != 'basic' %}
+    {% if overallBehaviorScoresCheck == true %}
+    <div class="container">
+    <p class="text-center formHeaders">
+        <u>BEHAVIOURAL SUMMARY</u>
+    </p>
+    <br>
+    <div class="row">
+    <div class="col-xs-4 col-xs-offset-2">
+        <table>
+            <tr>
+                <td class="tratesName ">
+                    Creativity:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.creativity }}
+                </td>
+            </tr>
+            <tr>
+                <td class=" tratesName ">
+                    Communication Skills:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.communication_skills }}
+                </td>
+            </tr>
+            <tr>
+                <td class=" tratesName ">
+                    Business Writing & Writing ability:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.business_writing_ability }}
+                </td>
+            </tr>
+            <tr>
+                <td class=" tratesName ">
+                    Professional image:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.professional_image }}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-4">
+        <table>
+            <tr>
+                <td class="tratesName ">
+                    Professional engagement:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.professional_engagement }}
+                </td>
+            </tr>
+            <tr>
+                <td class=" tratesName ">
+                    Network Reach:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.network_reach }}
+                </td>
+            </tr>
+            <tr>
+                <td class=" tratesName ">
+                    Network Engagement:
+                </td>
+                <td class="lightGrey tratesScores">
+                    {{ overallBehaviorScores.network_engagement }}
+                </td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+    <br>
+    <p class="clearBoth">
+        <br>
+    <p class="text-center formHeaders">
+        <u>PLATFORM SUMMARY</u>
+    </p>
+    <p>
+        <i>
+            * Platform conduct scores range from -1.67 - 5, with -1.67 being the lowest score and 5
+            being
+            the
+            highest.
+            This reflects conduct on the
+            individual platform.
+        </i>
+    </p>
+
+    {#    Behavioural summary end#}
+
+    {#    Comments start#}
+
+    {% for social in comment %}
+
+        {% if social.count >=1 %}
+            <div class="findingsDivider"></div>
+            <div class="row">
+                <div class="col-xs-3" style="overflow: hidden;">
+                    {% for key,icon in socialMediaIcon %}
+                        <div class="center-block">
+                            {% if key == social.name %}
+                                <img class="socialMediaIcon" src="{{ icon }}">
+
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-xs-6">
+                    <div class="col-xs-6">
+                        <p class="lightGrey">FINDINGS</p>
+                        <p>
+                        <ul class="nobull">
+                            {% for comment in social.comments %}
+
+                                <li>{{ comment.comment }}</li>
+
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="pull-right">
+                        <p class="lightGrey ">SCORE </p>
+                        {% for key,score in platform_scores %}
+                            {% if key == social.name %}
+                                <p class="text-center font-size18">{{ score.weighted_platform_score }}</p>
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+    <div class="findingsDivider"></div>
+    {#    Comments start#}
+
+    {% endif %}
+    <div class="page"></div>
+    <div class="container">
+    {#    Note Worthy finding start#}
+    {% if report_type != 'basic' %}
+    {% if report_type != 'standard' %}
+    {% for proofCheck in proof %}
+    {% if  proofCheck.check_proof == true %}
+
+    {#    Platform build start #}
+    {% for key,section in report['questions'] %}
+    {% for platName,platform in section %}
+
+    {% if  proofCheck.name  ==  platName %}
+
+    {#    Platforms start#}
+    <div class="page"></div>
+    <p class="text-center formHeaders">
+        <u>DETAILED PLATFORM</u>
+        <BR>
+        <u>FINDINGS</u>
+        <BR>
+        {% for key,logo in socialMediaIcon %}
+            {% if key == platName %}
+                <img class="socialMediaIcon" src="{{ logo }}">
+            {% endif %}
+        {% endfor %}
+    </p>
+    {% if report_type == 'high_profile' %}
+
+        {% for phrase in searchTerms %}
+            {% if phrase.name == platName %}
+                <table>
+                    <tr>
+                        <td class="tratesName ">
+                            Number of Profile Hits:
+                        </td>
+                        <td class="tratesScores">
+                            {{ phrase.results.hit_counts }}
+                        </td>
+                        <td class="tratesName ">
+                            Number of True Hits:
+                        </td>
+                        <td class="lightGrey tratesScores">
+                            {{ phrase.results.validated }}
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td class="tratesName ">
+                            Confirmation of Identity:
+                        </td>
+                        <td class="lightGrey tratesScores">
+                            {% for search in  phrase.search_term %}
+
+                                <i class="fa fa-search searchIcon"></i>   {{ search.phrase |replace({'_': ' '}) }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="lightGrey"> {{ "Noteworthy Findings" | upper }}</div>
+        </div>
+        <div class="col-xs-4">
+            <div class="lightGrey">{{ "Related Extract"| upper }} </div>
+        </div>
+    </div>
+    <hr class="noteworthyFindingsHr">
+    {% for question in platform %}
+    {% if question.answers[0].proofs %}
+    {% for proof in question.answers[0].proofs %}
+    <div class="row">
+        <div class="col-xs-7 noteworthyFindings">
+            <br>
+            {% if question.platform == "web" %}
+
+                <i class="fa fa-google fa-2x"></i>
+
+            {% else %}
+                <i class="fa fa-{{ question.platform }} fa-2x"></i>
+            {% endif %}
+            <b>Comment:</b><br> <br>{{ proof.comment |nl2br|raw }}
+        </div>
+        {% if (question.answers | length > 0) and  (question.answers[0].proofs | length > 0) %}
+        <div class="col-xs-2 noteworthyFindings noteworthyFindingsImage">
+            {% set url = 'https://qaams00safarosian.blob.core.windows.net/profile-images/' ~ subject.blobFolder ~ '/' ~ proof.proof_storage.image_file %}
+            <img src="{{ url }}"
+                 class="proofImage">
+        </div>
+        {% else %}
+        <div class="col-xs-2  noteworthyFindings"></div>
+    </div>
+    {% endif %}
+    </div>
+<hr class="noteworthyFindingsHr">
+
+    {% endfor %}
+    {% endif %}
+
+    {% endfor %}
+    <div class="page"></div>
+    {#    Platforms end#}
+
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    {#    Platform build end #}
+
+    {% endif %}
+    {% endfor %}
+
+    {% endif %}
+    {% endif %}
+    {#    Note Worthy finding end#}
+    </div>
+    <div class="page"></div>
+    {#    Risk start#}
+    <div class="container">
+        <div style="height: 100px; position: relative; clear: both;"></div>
+        <div class="row risk-assessment">
+            <div class="bx-pager bx-default-pager">
+                <div class="bx-pager-item success">
+                    {% if report.reportScore.risk_score <= 25 %}
+                        <div class="score"><span> {{ report.reportScore.risk_score |round }} %</span></div>
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        Very Low <br/>Risk <span>0% - 25%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item good ">
+                    {% if ( report.reportScore.risk_score |round  >= 26 ) and ( report.reportScore.risk_score |round  <= 35 ) %}
+                        <div class="score"><span> {{ report.reportScore.risk_score |round }} % </span></div>
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        Low <br/>Risk <span>26% -  35%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item moderate">
+                    {% if ( report.reportScore.risk_score |round  >= 36  ) and ( report.reportScore.risk_score |round  <= 55 ) %}
+                        <div class="score"><span> {{ report.reportScore.risk_score |round }}  %</span></div>
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        Moderate <br/>Risk <span>36% - 55%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item warning ">
+                    {% if ( report.reportScore.risk_score |round  >= 56 ) and ( report.reportScore.risk_score |round  <= 80 ) %}
+                        <div class="score"><span> {{ report.reportScore.risk_score |round }} % </span></div>
+                    {% endif %}
+                    <div class="bx-pager-link">
+                        High <br/>Risk <span>56% -  80%</span>
+                    </div>
+                </div>
+                <div class="bx-pager-item danger">
+                    {% if ( report.reportScore.risk_score |round   >= 81 ) and ( report.reportScore.risk_score |round  <= 100 ) %}
+                        <div class="score"><span> {{ report.reportScore.risk_score |round }} % </span></div>
+                    {% endif %}
+                    <div class="bx-pager-link ">
+                        Extreme <br/>Risk <span>81% - 100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#    Risk end#}
+    <br>
+    <br>
+    <div class="container riskComment">
+        {{ risk_comment }}
+    </div>
+    <div class="container">
+        {{ config['disclaimer'] | raw }}
+    </div>
+{% endblock body %}

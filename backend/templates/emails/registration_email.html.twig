@@ -1,0 +1,10 @@
+{# templates/emails/registration_email.html.twig #}
+<h3>You have been registered!</h3>
+Hi {{ user.firstName }} {{ user.lastName }}! You're successfully registered.
+<br>
+<p>To login you need to create your password. Click on this <a href="{{ resetUrl }}/{{ user.token }}">link...</a>
+    <br><br>
+   Or Copy the link to browser: <br> {{ resetUrl }}/{{ user.token }}
+</p>
+<p>And follow the instructions on the page and/email to get a new password and log into the system</p>
+Thanks!
