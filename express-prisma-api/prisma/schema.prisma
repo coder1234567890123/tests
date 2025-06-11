@@ -1,0 +1,173 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  firstName String?
+  lastName  String?
+  roles     Json? // Assuming roles are stored as JSON
+  enabled   Boolean   @default(true)
+  companyId String?
+  teamId    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  company   Company?  @relation(fields: [companyId], references: [id])
+  team      Team?     @relation(fields: [teamId], references: [id])
+  reports   Report[]  @relation("AssignedToUser")
+  answers   Answer[]  @relation("AnsweredByUser")
+  comments  Comment[] @relation("CommentByUser")
+  ledTeam   Team?     @relation("TeamLeader")
+}
+
+model Company {
+  id                 String     @id @default(uuid())
+  name               String
+  registrationNumber String?
+  vatNumber          String?
+  email              String?
+  phone              String?
+  address            Json? // Assuming address is stored as JSON or a separate model
+  countryId          String?
+  teamId             String?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  country            Country?   @relation(fields: [countryId], references: [id])
+  team               Team?      @relation(fields: [teamId], references: [id])
+  users              User[]
+  reports            Report[]
+  subjects           Subject[]
+  accounts           Accounts[]
+}
+
+model Report {
+  id            String    @id @default(uuid())
+  sequence      Int // Or String, depending on expected format
+  status        String
+  riskScore     Float?
+  dueDate       DateTime?
+  completedDate DateTime?
+  subjectId     String
+  userId        String? // assignedTo
+  companyId     String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  subject       Subject   @relation(fields: [subjectId], references: [id])
+  assignedTo    User?     @relation("AssignedToUser", fields: [userId], references: [id])
+  company       Company?  @relation(fields: [companyId], references: [id])
+  answers       Answer[]
+  comments      Comment[]
+}
+
+model Subject {
+  id             String    @id @default(uuid())
+  identification String?   @unique // Assuming this should be unique if used for lookups
+  firstName      String?
+  lastName       String?
+  dob            DateTime?
+  primaryEmail   String?
+  primaryMobile  String?
+  companyId      String?
+  countryId      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  company        Company?  @relation(fields: [companyId], references: [id])
+  country        Country?  @relation(fields: [countryId], references: [id])
+  reports        Report[]
+  profiles       Profile[]
+  // answers        Answer[]  // Uncomment if a direct relation from Subject to Answer is needed
+}
+
+model Team {
+  id           String    @id @default(uuid())
+  teamLeaderId String    @unique // Each team has one unique leader
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  teamLeader   User      @relation("TeamLeader", fields: [teamLeaderId], references: [id])
+  users        User[]
+  companies    Company[]
+}
+
+model Country {
+  id        String    @id @default(uuid())
+  code      String    @unique
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  companies Company[]
+  subjects  Subject[]
+}
+
+model Accounts {
+  id            String   @id @default(uuid())
+  companyId     String
+  monthlyUnits  Int?
+  addUnit       Int?
+  unitUsed      Int?
+  totalUnitUsed Int?
+  requestType   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  company       Company  @relation(fields: [companyId], references: [id])
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  answer     String?
+  score      Float?
+  questionId String
+  reportId   String
+  userId     String? // answeredBy
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  question   Question @relation(fields: [questionId], references: [id])
+  report     Report   @relation(fields: [reportId], references: [id])
+  answeredBy User?    @relation("AnsweredByUser", fields: [userId], references: [id])
+  // subject     Subject? @relation(fields: [subjectId], references: [id]) // If answers can be linked directly to subjects
+  // subjectId   String?
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  comment   String
+  reportId  String
+  userId    String? // commentBy
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  report    Report   @relation(fields: [reportId], references: [id])
+  commentBy User?    @relation("CommentByUser", fields: [userId], references: [id])
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  subjectId String
+  platform  String // e.g., 'Facebook', 'LinkedIn'
+  link      String
+  valid     Boolean? @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  question      String
+  answerType    String // e.g., 'multiple-choice', 'text', 'rating'
+  platform      String? // If specific to a platform
+  reportTypes   Json? // e.g., ['KYC', 'AML']
+  answerOptions Json? // For multiple-choice, e.g., { "A": "Option A", "B": "Option B" }
+  answerScore   Json? // Score for each option, e.g., { "A": 10, "B": 5 }
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  answers       Answer[]
+}
