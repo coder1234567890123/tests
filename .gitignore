@@ -1,0 +1,18 @@
+# General
+*.log
+.env
+.env*.local
+.DS_Store
+
+# Express Backend
+/express-prisma-api/node_modules/
+/express-prisma-api/coverage/
+/express-prisma-api/uploads/
+/express-prisma-api/package-lock.json
+
+# Next.js Frontend
+/nextjs-frontend/node_modules/
+/nextjs-frontend/.next/
+/nextjs-frontend/out/
+/nextjs-frontend/coverage/
+/nextjs-frontend/package-lock.json

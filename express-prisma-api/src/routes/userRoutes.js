@@ -1,13 +1,19 @@
 import express from 'express';
 import * as userController from '../controllers/userController.js';
-import { protect } from '../middleware/authMiddleware.js'; // Import protect
+import { protect, authorize } from '../middleware/authMiddleware.js'; // Import authorize
 
 const router = express.Router();
+const superAdminOnly = authorize(['ROLE_SUPER_ADMIN']);
 
-// router.post('/', userController.createUser); // Should be removed/commented
-router.get('/', protect, userController.getAllUsers); // Protect this route
-router.get('/:id', protect, userController.getUserById); // Example: protect this too
-router.patch('/:id', protect, userController.updateUser); // Example: protect this too
-router.delete('/:id', protect, userController.deleteUser); // Example: protect this too
+// Admin routes for managing any user
+router.get('/', protect, superAdminOnly, userController.getAllUsers);
+router.get('/:id', protect, superAdminOnly, userController.getUserById); // Admin getting any user
+router.patch('/:id', protect, superAdminOnly, userController.updateUser);
+router.delete('/:id', protect, superAdminOnly, userController.deleteUser);
+
+// Routes for current user's own profile
+router.get('/me/profile', protect, userController.getMyProfile);
+router.patch('/me/profile', protect, userController.updateMyProfile);
+router.post('/me/change-password', protect, userController.changeMyPassword);
 
 export default router;
