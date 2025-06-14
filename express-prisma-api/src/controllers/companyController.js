@@ -32,25 +32,27 @@ export const getAllCompanies = async (req, res) => {
     sortBy = 'name', sortOrder = 'asc'
   } = req.query;
 
-  const pageNum = parseInt(page as string, 10) || 1;
-  const limitNum = parseInt(limit as string, 10) || 10;
+  let pageNum = parseInt(String(page), 10);
+  if (isNaN(pageNum) || pageNum < 1) pageNum = 1;
+  let limitNum = parseInt(String(limit), 10);
+  if (isNaN(limitNum) || limitNum < 1) limitNum = 10;
   const offset = (pageNum - 1) * limitNum;
 
   const whereClause: any = {};
   const andConditions = [];
 
-  if (name) andConditions.push({ name: { contains: name as string, mode: 'insensitive' } });
-  if (city) andConditions.push({ city: { contains: city as string, mode: 'insensitive' } });
-  if (countryId) andConditions.push({ countryId: countryId as string });
+  if (name) andConditions.push({ name: { contains: String(name), mode: 'insensitive' } });
+  if (city) andConditions.push({ city: { contains: String(city), mode: 'insensitive' } });
+  if (countryId) andConditions.push({ countryId: String(countryId) });
 
   const user = req.user;
   const isSuperAdmin = user?.roles?.includes('ROLE_SUPER_ADMIN');
-  const isAdminUser = user?.roles?.includes('ROLE_ADMIN_USER'); // Assuming this role exists and has broad access
+  const isAdminUser = user?.roles?.includes('ROLE_ADMIN_USER');
 
   if ((isSuperAdmin || isAdminUser) && teamId) {
-     andConditions.push({ teamId: teamId as string });
-  } else if (!isSuperAdmin && !isAdminUser) { // Regular user
-     if (user?.companyId) { // If user belongs to a company, they see only their company
+     andConditions.push({ teamId: String(teamId) });
+  } else if (!isSuperAdmin && !isAdminUser) {
+     if (user?.companyId) {
         andConditions.push({ id: user.companyId });
      } else if (user?.teamId) { // If user belongs to a team but not a specific company directly, show companies in their team
         andConditions.push({ teamId: user.teamId });
@@ -75,7 +77,7 @@ export const getAllCompanies = async (req, res) => {
          country: { select: { name: true }},
          team: { select: { id: true, teamName: true }}
      },
-      orderBy: { [sortBy as string]: sortOrder as string },
+      orderBy: { [String(sortBy)]: String(sortOrder) },
       skip: offset,
       take: limitNum,
     });

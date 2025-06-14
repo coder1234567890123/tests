@@ -61,28 +61,32 @@ export const createReport = async (req, res) => {
 export const getAllReports = async (req, res) => {
   const {
     status, requestType, companyId, dateFrom, dateTo, search,
-    page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc'
-  } = req.query;
-  const pageNum = parseInt(page as string, 10) || 1;
-  const limitNum = parseInt(limit as string, 10) || 10;
+    page = '1', limit = '10', sortBy = 'createdAt', sortOrder = 'desc'
+  } = req.query; // Default to strings for page and limit for consistent parsing
+
+  let pageNum = parseInt(String(page), 10);
+  if (isNaN(pageNum) || pageNum < 1) pageNum = 1;
+  let limitNum = parseInt(String(limit), 10);
+  if (isNaN(limitNum) || limitNum < 1) limitNum = 10;
   const offset = (pageNum - 1) * limitNum;
+
   const whereClause: any = {};
   const andConditions = [];
-  if (status) andConditions.push({ status: status as string });
-  if (requestType) andConditions.push({ requestType: requestType as string });
-  if (companyId) andConditions.push({ companyId: companyId as string });
+  if (status) andConditions.push({ status: String(status) });
+  if (requestType) andConditions.push({ requestType: String(requestType) });
+  if (companyId) andConditions.push({ companyId: String(companyId) });
   if (dateFrom) {
-    andConditions.push({ createdAt: { ...((andConditions.find(c => c.createdAt)?.createdAt) || {}), gte: new Date(dateFrom as string) } });
+    andConditions.push({ createdAt: { ...((andConditions.find(c => c.createdAt)?.createdAt) || {}), gte: new Date(String(dateFrom)) } });
   }
   if (dateTo) {
     const existingCreatedAt = andConditions.find(c => c.createdAt)?.createdAt || {};
     const otherConditions = andConditions.filter(c => !c.createdAt);
     andConditions.length = 0;
     andConditions.push(...otherConditions);
-    andConditions.push({ createdAt: { ...existingCreatedAt, lte: new Date(new Date(dateTo as string).setHours(23,59,59,999)) } });
+    andConditions.push({ createdAt: { ...existingCreatedAt, lte: new Date(new Date(String(dateTo)).setHours(23,59,59,999)) } });
   }
   if (search) {
-    const searchString = search as string;
+    const searchString = String(search);
     andConditions.push({
       OR: [
         { sequence: { contains: searchString, mode: 'insensitive' } },
@@ -112,7 +116,7 @@ export const getAllReports = async (req, res) => {
          assignedTo: { select: { id:true, email:true, firstName:true, lastName:true }},
          createdBy: { select: { id:true, email:true, firstName:true, lastName:true }}
       },
-      orderBy: { [sortBy as string]: sortOrder as string },
+      orderBy: { [String(sortBy)]: String(sortOrder) },
       skip: offset, take: limitNum,
     });
     const totalReports = await prisma.report.count({ where: whereClause });

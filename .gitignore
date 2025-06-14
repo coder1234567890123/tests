@@ -1,18 +1,30 @@
-# General
-*.log
-.env
-.env*.local
+# IDE directories
+.idea/
+.vscode/
+
+# OS generated files
 .DS_Store
+Thumbs.db
 
-# Express Backend
-/express-prisma-api/node_modules/
-/express-prisma-api/coverage/
-/express-prisma-api/uploads/
-/express-prisma-api/package-lock.json
+# General .env files (local secrets)
+.env
+*.env.local
+*.env.*.local
 
-# Next.js Frontend
-/nextjs-frontend/node_modules/
-/nextjs-frontend/.next/
-/nextjs-frontend/out/
-/nextjs-frontend/coverage/
-/nextjs-frontend/package-lock.json
+# Log files
+*.log
+logs/
+
+# Coverage output
+coverage/
+
+# Node modules in any subdirectory (covered by project .gitignores too but good for root)
+**/node_modules
+
+# Next.js build outputs in any subdirectory
+**/.next
+**/out
+
+# Prisma
+**/prisma/dev.db
+**/prisma/dev.db-journal

@@ -10,24 +10,26 @@ export const getAllUsers = async (req, res) => {
     sortBy = 'createdAt', sortOrder = 'desc'
   } = req.query;
 
-  const pageNum = parseInt(page as string, 10) || 1;
-  const limitNum = parseInt(limit as string, 10) || 10;
+  let pageNum = parseInt(String(page), 10);
+  if (isNaN(pageNum) || pageNum < 1) pageNum = 1;
+  let limitNum = parseInt(String(limit), 10);
+  if (isNaN(limitNum) || limitNum < 1) limitNum = 10;
   const offset = (pageNum - 1) * limitNum;
 
   const whereClause: any = {};
   const andConditions = [];
 
-  if (email) andConditions.push({ email: { contains: email as string, mode: 'insensitive' } });
-  if (firstName) andConditions.push({ firstName: { contains: firstName as string, mode: 'insensitive' } });
-  if (lastName) andConditions.push({ lastName: { contains: lastName as string, mode: 'insensitive' } });
-  if (role) andConditions.push({ roles: { has: role as string } });
+  if (email) andConditions.push({ email: { contains: String(email), mode: 'insensitive' } });
+  if (firstName) andConditions.push({ firstName: { contains: String(firstName), mode: 'insensitive' } });
+  if (lastName) andConditions.push({ lastName: { contains: String(lastName), mode: 'insensitive' } });
+  if (role) andConditions.push({ roles: { has: String(role) } });
 
   const reqUser = req.user;
   const isSuperAdmin = reqUser?.roles?.includes('ROLE_SUPER_ADMIN');
   const isAdminUser = reqUser?.roles?.includes('ROLE_ADMIN_USER');
 
   if ((isSuperAdmin || isAdminUser) && companyId) {
-    andConditions.push({ companyId: companyId as string });
+    andConditions.push({ companyId: String(companyId) });
   } else if (!isSuperAdmin && !isAdminUser && reqUser?.companyId) {
     andConditions.push({ companyId: reqUser.companyId });
   } else if (!isSuperAdmin && !isAdminUser && !reqUser?.companyId) {
@@ -46,7 +48,7 @@ export const getAllUsers = async (req, res) => {
          company: { select: { id: true, name: true }},
          team: { select: { id: true, teamName: true }}
       },
-      orderBy: { [sortBy as string]: sortOrder as string },
+      orderBy: { [String(sortBy)]: String(sortOrder) },
       skip: offset,
       take: limitNum,
     });

@@ -70,28 +70,30 @@ export const getAllSubjects = async (req, res) => {
     sortBy = 'createdAt', sortOrder = 'desc'
   } = req.query;
 
-  const pageNum = parseInt(page as string, 10) || 1;
-  const limitNum = parseInt(limit as string, 10) || 10;
+  let pageNum = parseInt(String(page), 10);
+  if (isNaN(pageNum) || pageNum < 1) pageNum = 1;
+  let limitNum = parseInt(String(limit), 10);
+  if (isNaN(limitNum) || limitNum < 1) limitNum = 10;
   const offset = (pageNum - 1) * limitNum;
 
   const whereClause: any = {};
   const andConditions = [];
 
-  if (firstName) andConditions.push({ firstName: { contains: firstName as string, mode: 'insensitive' } });
-  if (lastName) andConditions.push({ lastName: { contains: lastName as string, mode: 'insensitive' } });
-  if (identification) andConditions.push({ identification: { contains: identification as string, mode: 'insensitive' } });
-  if (status) andConditions.push({ status: status as string });
-  if (reportType) andConditions.push({ reportType: reportType as string });
-  if (countryId) andConditions.push({ countryId: countryId as string });
+  if (firstName) andConditions.push({ firstName: { contains: String(firstName), mode: 'insensitive' } });
+  if (lastName) andConditions.push({ lastName: { contains: String(lastName), mode: 'insensitive' } });
+  if (identification) andConditions.push({ identification: { contains: String(identification), mode: 'insensitive' } });
+  if (status) andConditions.push({ status: String(status) });
+  if (reportType) andConditions.push({ reportType: String(reportType) });
+  if (countryId) andConditions.push({ countryId: String(countryId) });
 
   const user = req.user;
   const isSuperAdmin = user?.roles?.includes('ROLE_SUPER_ADMIN');
   const isAdminUser = user?.roles?.includes('ROLE_ADMIN_USER');
-  // const isTeamLead = user?.roles?.includes('ROLE_TEAM_LEAD'); // Not used in current simplified logic
+  // const isTeamLead = user?.roles?.includes('ROLE_TEAM_LEAD');
 
-  if ((isSuperAdmin || isAdminUser) && companyId) { // SuperAdmins/Admins can filter by any companyId
-    andConditions.push({ companyId: companyId as string });
-  } else if (!isSuperAdmin && !isAdminUser && user?.companyId) { // Non-Admins are restricted to their own company
+  if ((isSuperAdmin || isAdminUser) && companyId) {
+    andConditions.push({ companyId: String(companyId) });
+  } else if (!isSuperAdmin && !isAdminUser && user?.companyId) {
     andConditions.push({ companyId: user.companyId });
   } else if (!isSuperAdmin && !isAdminUser && !user?.companyId) {
     // Non-Admins without a company: restricted to subjects they created.
@@ -117,11 +119,10 @@ export const getAllSubjects = async (req, res) => {
       where: whereClause,
       include: {
         company: { select: { id: true, name: true } },
-        country: { select: { name: true } }, // Assuming Country model has a 'name' field
+        country: { select: { name: true } },
         createdBy: { select: { id: true, email: true, firstName: true, lastName: true } },
-        // _count: { select: { reports: true } } // Example for report count
       },
-      orderBy: { [sortBy as string]: sortOrder as string },
+      orderBy: { [String(sortBy)]: String(sortOrder) },
       skip: offset,
       take: limitNum,
     });

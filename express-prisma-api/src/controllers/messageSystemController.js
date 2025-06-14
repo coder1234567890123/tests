@@ -3,10 +3,13 @@ import prisma from '../utils/prismaClient.js';
 
 export const getUserMessages = async (req, res) => {
   const userId = req.user?.id;
-  let { page = 1, limit = 10, read } = req.query;
+  // Destructure with different names to avoid conflict if page/limit are undefined
+  const { page: pageQuery = '1', limit: limitQuery = '10', read } = req.query;
 
-  const pageNum = parseInt(page as string, 10) || 1; // Added type assertion for safety, though JS is dynamic
-  const limitNum = parseInt(limit as string, 10) || 10;
+  let pageNum = parseInt(String(pageQuery), 10);
+  if (isNaN(pageNum) || pageNum < 1) pageNum = 1;
+  let limitNum = parseInt(String(limitQuery), 10);
+  if (isNaN(limitNum) || limitNum < 1) limitNum = 10;
   const offset = (pageNum - 1) * limitNum;
 
   const whereClause: any = { messageForId: userId };

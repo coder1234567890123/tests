@@ -1,7 +1,7 @@
 node_modules/
-
-# Local environment variables should not be committed.
-# A generic .env (copied from .env.example and populated with non-sensitive defaults)
-# can be committed if desired. Specific local overrides should use .env.local.
+.env
 .env.local
 .env.*.local
+# Make sure .env.example is NOT listed here
+coverage/
+dist/
