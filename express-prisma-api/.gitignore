@@ -1,4 +1,7 @@
 node_modules/
-.env
 
-/src/generated/prisma
+# Local environment variables should not be committed.
+# A generic .env (copied from .env.example and populated with non-sensitive defaults)
+# can be committed if desired. Specific local overrides should use .env.local.
+.env.local
+.env.*.local
